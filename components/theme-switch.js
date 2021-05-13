@@ -12,7 +12,7 @@ const ThemeSwitch = () => {
       control={
         <Switch
           checked={isDarkMode}
-          onChange={() => setDarkMode(!isDarkMode)}
+          onChange={() => setDarkMode((prevIsDarkMode) => !prevIsDarkMode)}
           name="isDarkMode"
           color="secondary"
         />
