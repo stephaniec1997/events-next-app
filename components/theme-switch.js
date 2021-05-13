@@ -1,10 +1,12 @@
-import React from 'react';
-
+import { useContext } from 'react';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 
+import DarkModeContext from "contexts/dark-mode";
 
-const ThemeSwitch = ({isDarkMode, setDarkMode}) => {
+const ThemeSwitch = () => {
+  const { isDarkMode, setDarkMode } = useContext(DarkModeContext);
+
   return (
     <FormControlLabel
       control={
@@ -12,7 +14,7 @@ const ThemeSwitch = ({isDarkMode, setDarkMode}) => {
           checked={isDarkMode}
           onChange={() => setDarkMode(!isDarkMode)}
           name="isDarkMode"
-          color="primary"
+          color="secondary"
         />
       }
       label="Dark Mode"
