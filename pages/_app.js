@@ -2,10 +2,10 @@ import { useState } from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { ThemeProvider } from '@material-ui/core/styles';
 
-import DarkModeContext from 'contexts/dark-mode'
+import DarkModeContext from 'contexts/dark-mode';
 
 import Navbar from 'components/navbar';
-import {darkTheme, lightTheme} from 'styles/theme'
+import {darkTheme, lightTheme} from 'styles/theme';
 
 function MyApp({ Component, pageProps }) {
   const [isDarkMode, setDarkMode] = useState(true);
@@ -20,7 +20,7 @@ function MyApp({ Component, pageProps }) {
         <Component {...pageProps} />
       </ThemeProvider>
     </DarkModeContext.Provider>
-  )
+  );
 }
 
-export default MyApp
+export default MyApp;

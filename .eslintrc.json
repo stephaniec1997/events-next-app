@@ -20,7 +20,17 @@
     ],
     "rules": {
       "react/prop-types": "off",
-      "react/react-in-jsx-scope": "off"
+      "react/react-in-jsx-scope": "off",
+      "comma-dangle": ["error", "always-multiline"],
+      "semi": ["error", "always", { "omitLastInOneLineBlock": true}],
+      "space-before-function-paren": ["error", {
+        "anonymous": "always",
+        "named": "never",
+        "asyncArrow": "always"
+      }],
+      "arrow-parens": [2, "as-needed", { "requireForBlockBody": true }],
+      "template-curly-spacing": "off",
+      "indent": "off"
     },
     "globals": {
       "React": "writable"

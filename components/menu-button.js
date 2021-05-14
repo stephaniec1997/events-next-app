@@ -1,5 +1,5 @@
 import {useState, useRef, useEffect} from 'react';
-import Link from 'next/link'
+import Link from 'next/link';
 import IconButton from '@material-ui/core/IconButton';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import Grow from '@material-ui/core/Grow';
@@ -23,7 +23,7 @@ const MenuButton = () => {
   }, [open]);
 
   const handleToggle = () => {
-    setOpen((prevOpen) => !prevOpen);
+    setOpen(prevOpen => !prevOpen);
   };
 
   const handleClose = (event) => {
@@ -85,6 +85,6 @@ const MenuButton = () => {
       </div>
     </div>
   );
-}
+};
 
 export default MenuButton;

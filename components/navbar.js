@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import Link from 'next/link';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Container from '@material-ui/core/Container';
@@ -17,7 +17,7 @@ const useStyles = makeStyles(() => ({
     flexGrow: 1,
     display: 'flex',
     flexDirection:'row',
-    alignItems: 'center'
+    alignItems: 'center',
   },
 }));
 
@@ -42,6 +42,6 @@ const Navbar = () => {
       </AppBar>
     </div>
   );
-}
+};
 
 export default Navbar;
