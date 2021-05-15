@@ -22,13 +22,13 @@ const EVENTS = {
   },
 ]};
 
-const Events = () => {
+const Events = ({edit}) => {
   const events = new EventsModel(EVENTS);
 
   return (
     <List>
       {events.eventsList.map(event => (
-        <Event key={event.id} event={event} />
+        <Event key={event.id} event={event} edit={edit} />
         ))
       }
     </List>

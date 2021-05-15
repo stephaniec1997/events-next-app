@@ -6,6 +6,8 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 
+import EditButtons from 'components/events/edit-buttons';
+
 const useStyles = makeStyles(theme => ({
   root: {
     width: '100%',
@@ -17,7 +19,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const Event = ({event}) => {
+const Event = ({event, edit}) => {
   const classes = useStyles();
 
   return (
@@ -62,6 +64,7 @@ const Event = ({event}) => {
             </>
           }
         />
+        {edit && <EditButtons />}
       </ListItem>
       <Divider variant="inset" component="li" />
     </>
