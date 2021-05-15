@@ -6,8 +6,6 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 
-import EventModel from 'models/event';
-
 const useStyles = makeStyles(theme => ({
   root: {
     width: '100%',
@@ -22,13 +20,11 @@ const useStyles = makeStyles(theme => ({
 const Event = ({event}) => {
   const classes = useStyles();
 
-  const eventData = new EventModel(event);
-
   return (
     <>
       <ListItem alignItems="flex-start">
         <ListItemAvatar>
-          <Avatar alt={eventData.name} src="/static/images/avatar/1.jpg" />
+          <Avatar alt={event.name} src="/static/images/avatar/1.jpg" />
         </ListItemAvatar>
         <ListItemText
           primary={
@@ -39,7 +35,7 @@ const Event = ({event}) => {
                 className={classes.inline}
                 color="textPrimary"
               >
-                {eventData.name}
+                {event.name}
               </Typography>
               <Typography
                 component="span"
@@ -47,7 +43,7 @@ const Event = ({event}) => {
                 className={classes.inline}
                 color="textSecondary"
               >
-                {`  --- ${eventData.startDate}`}{eventData.endDate && ` - ${eventData.endDate}`}
+                {`  --- ${event.startDate}`}{event.endDate && ` - ${event.endDate}`}
               </Typography>
             </>
           }
@@ -56,12 +52,12 @@ const Event = ({event}) => {
               <Typography
                 variant="body2"
               >
-                {eventData.place}
+                {event.place}
               </Typography>
               <Typography
                 variant="body1"
               >
-                {eventData.description}
+                {event.description}
               </Typography>
             </>
           }

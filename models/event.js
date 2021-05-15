@@ -6,8 +6,8 @@ export default class Event {
 
     this._id = this._options._id || null;
     this._name = this._options.name || "New Event";
-    this._start_date = new Date(this._options.startDate) || null;
-    this._end_date = new Date(this._options.endDate) || null;
+    this._start_date = this._options.startDate && new Date(this._options.startDate) || null;
+    this._end_date = this._options.endDate && new Date(this._options.endDate);
     this._place = this._options.place || null;
     this._description = this._options.description || null;
   }
@@ -37,6 +37,6 @@ export default class Event {
   }
 
   formatDate(date) {
-    return date.toLocaleString();
+    return date && date.toLocaleString();
   }
 }
