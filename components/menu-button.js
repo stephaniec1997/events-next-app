@@ -8,9 +8,18 @@ import Popper from '@material-ui/core/Popper';
 import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
 import MenuIcon from '@material-ui/icons/Menu';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles(() => ({
+  menuContainer:{
+    zIndex: 1000,
+  },
+}));
 
 
 const MenuButton = () => {
+  const classes = useStyles();
+
   const [open, setOpen] = useState(false);
   const anchorRef = useRef(null);
 
@@ -59,7 +68,7 @@ const MenuButton = () => {
         >
           <MenuIcon />
         </IconButton>
-        <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
+        <Popper className={classes.menuContainer} open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
           {({ TransitionProps, placement }) => (
             <Grow
               {...TransitionProps}
