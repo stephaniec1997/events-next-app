@@ -1,7 +1,7 @@
 import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
 
-import TextForm from 'components/signin/text-form';
+import Form from 'components/form';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -17,8 +17,23 @@ const SignIn = () => {
 
   return(
     <Container className={classes.root}>
-      <TextForm title={'Sign Up'} fields={['username','email', 'password']} />
-      <TextForm title={'Log In'} fields={['email', 'password']} />
+      <Form
+        title={'Sign Up'}
+        fields={[
+          {label:'username', type:'text'},
+          {label:'email', type:'text'},
+          {label:'password', type:'password'},
+        ]}
+        buttonTitle={'Create Account'}
+      />
+      <Form
+        title={'Log In'}
+        fields={[
+          {label:'email', type:'text'},
+          {label:'password', type:'password'},
+        ]}
+        buttonTitle={'Log In'}
+      />
     </Container>
   );
 };

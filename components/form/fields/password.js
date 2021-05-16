@@ -7,7 +7,6 @@ import FormControl from '@material-ui/core/FormControl';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 
-
 const PasswordField = ({password, setPassword, className})=> {
   const [showPassword, setShowPassword] = useState({
     showPassword: false,
@@ -23,26 +22,26 @@ const PasswordField = ({password, setPassword, className})=> {
   };
 
   return (
-        <FormControl className={className}>
-          <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
-          <Input
-            id="standard-adornment-password"
-            type={showPassword ? 'text' : 'password'}
-            value={password}
-            onChange={setPassword('password')}
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={handleClickShowPassword}
-                  onMouseDown={handleMouseDownPassword}
-                >
-                  {showPassword ? <Visibility /> : <VisibilityOff />}
-                </IconButton>
-              </InputAdornment>
-            }
-          />
-        </FormControl>
+    <FormControl className={className}>
+      <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
+      <Input
+        id="standard-adornment-password"
+        type={showPassword ? 'text' : 'password'}
+        value={password}
+        onChange={setPassword}
+        endAdornment={
+          <InputAdornment position="end">
+            <IconButton
+              aria-label="toggle password visibility"
+              onClick={handleClickShowPassword}
+              onMouseDown={handleMouseDownPassword}
+            >
+              {showPassword ? <Visibility /> : <VisibilityOff />}
+            </IconButton>
+          </InputAdornment>
+        }
+      />
+    </FormControl>
   );
 };
 
