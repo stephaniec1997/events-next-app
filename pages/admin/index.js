@@ -29,6 +29,16 @@ const useStyles = makeStyles(theme => ({
 const Admin = ({events}) => {
   const classes = useStyles();
 
+  const removeAdmin = ({email}) => {
+    // TODO: verify email is email b4 sending to api
+    console.log('removing user as admin', email);
+  };
+
+  const addAdmin = ({email}) => {
+    // TODO: verify email is email b4 sending to api
+    console.log('adding user as admin', email);
+  };
+
   return (
     <Container className={classes.root}>
       <Container className={classes.adminChanges}>
@@ -36,11 +46,13 @@ const Admin = ({events}) => {
           title='New Admin'
           fields={[{label: 'email', type:'text'}]}
           buttonTitle='Add New Admin'
+          onSubmit={addAdmin}
         />
         <Form
           title='Remove Admin'
           fields={[{label: 'email', type:'text'}]}
           buttonTitle='Remove Admin'
+          onSubmit={removeAdmin}
         />
       </Container>
       <Divider variant="fullWidth" light/>
@@ -50,7 +62,6 @@ const Admin = ({events}) => {
           color="primary"
           className={classes.button}
         >
-          {/* TODO: ONCLICK FUNCTIONALITY*/}
            <AddIcon /> New Event
         </Button>
       </Link>

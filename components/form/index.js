@@ -43,12 +43,16 @@ const initialState = (fields) => {
   return state;
 };
 
-const Form = ({title, fields, buttonTitle}) => {
+const Form = ({title, fields, buttonTitle, onSubmit}) => {
   const classes = useStyles();
   const [values, setValues] = useState(initialState(fields));
 
   const handleChange = prop => (value) => {
     setValues({ ...values, [prop]: value });
+  };
+
+  const handleSubmit = () =>{
+    onSubmit(values);
   };
 
   return (
@@ -71,8 +75,8 @@ const Form = ({title, fields, buttonTitle}) => {
             variant="contained"
             color="primary"
             className={classes.button}
+            onClick={handleSubmit}
           >
-            {/* TODO: ONCLICK FUNCTIONALITY*/}
             {buttonTitle}
           </Button>
         </CardContent>
