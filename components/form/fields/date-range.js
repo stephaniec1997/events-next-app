@@ -37,37 +37,39 @@ const EventForm = ({values, setValues, className}) => {
     <>
       <Container className={classes.dates}>
         <MuiPickersUtilsProvider utils={MomentUtils} >
-          {values.allDay && (
-            <DatePicker
-              value={values.start}
-              disablePast
-              inputVariant="outlined"
-              onChange={handleDateChange('start')}
-              label="Start Date"
-              showTodayButton
-            />
-          )}
-          {values.allDay || (
-            <DateTimePicker
-              value={values.start}
-              disablePast
-              inputVariant="outlined"
-              onChange={handleDateChange('start')}
-              label="Start Date"
-              showTodayButton
-            />
-          )}
-          {values.allDay || (
-            <DateTimePicker
-              value={values.end}
-              disablePast
-              inputVariant="outlined"
-              onChange={handleDateChange('end')}
-              label="End Date"
-              showTodayButton
-              className={classes.endDate}
-            />
-          )}
+          <>
+            {values.allDay && (
+              <DatePicker
+                value={values.start}
+                disablePast
+                inputVariant="outlined"
+                onChange={handleDateChange('start')}
+                label="Start Date"
+                showTodayButton
+              />
+            )}
+            {values.allDay || (
+              <DateTimePicker
+                value={values.start}
+                disablePast
+                inputVariant="outlined"
+                onChange={handleDateChange('start')}
+                label="Start Date"
+                showTodayButton
+              />
+            )}
+            {values.allDay || (
+              <DateTimePicker
+                value={values.end}
+                disablePast
+                inputVariant="outlined"
+                onChange={handleDateChange('end')}
+                label="End Date"
+                showTodayButton
+                className={classes.endDate}
+              />
+            )}
+          </>
         </MuiPickersUtilsProvider>
       </Container>
       <FormControlLabel
