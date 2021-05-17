@@ -23,10 +23,10 @@ const useStyles = makeStyles(theme => ({
 
 const initialState = (fields) => {
   const state = {};
-  fields.map(({label, type}) => {
+  fields.map(({label, type, value}) => {
     switch (type) {
       case 'date':
-        state[label] = {
+        state[label] = value || {
           start: new Date(),
           end: new Date(),
           allDay: false,
@@ -36,7 +36,7 @@ const initialState = (fields) => {
       case 'password':
       case 'text':
       default:
-        state[label] ='';
+        state[label] = value || '';
         break;
     }
   });

@@ -42,7 +42,7 @@ const Admin = () => {
         />
       </Container>
       <Divider variant="fullWidth" light/>
-      <Link href="/event/create">
+      <Link href="/admin/event/create">
         <Button
           variant="contained"
           color="primary"

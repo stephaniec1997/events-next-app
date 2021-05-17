@@ -6,8 +6,8 @@ export default class Event {
 
     this._id = this._options._id || null;
     this._name = this._options.name || "New Event";
-    this._start_date = this._options.startDate && new Date(this._options.startDate) || null;
-    this._end_date = this._options.endDate && new Date(this._options.endDate);
+    this._start_date = this._options.startDate && new Date(this._options.startDate);
+    this._end_date = this._options.endDate && new Date(this._options.endDate) || null;
     this._place = this._options.place || null;
     this._description = this._options.description || null;
   }
@@ -28,6 +28,10 @@ export default class Event {
     return this.formatDate(this._end_date);
   }
 
+  get allDay() {
+    return !this.endDate;
+  }
+
   get place() {
     return this._place;
   }
@@ -37,6 +41,7 @@ export default class Event {
   }
 
   formatDate(date) {
+    if(!date) return null;
     return date && date.toLocaleString();
   }
 }
