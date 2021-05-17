@@ -2,7 +2,9 @@ import Head from 'next/head';
 
 import Events from 'components/events';
 
-export default function Home() {
+import {EVENTS} from 'helpers/mock-data';
+
+export default function Home({events}) {
   return (
     <div >
       <Head>
@@ -16,7 +18,7 @@ export default function Home() {
       </Head>
 
       <main>
-          <Events />
+          <Events data={events}/>
       </main>
 
       <footer >
@@ -24,4 +26,14 @@ export default function Home() {
       </footer>
     </div>
   );
+}
+
+export async function getServerSideProps() {
+  const data = EVENTS; // TODO: Actually fetch this data
+
+  return {
+    props: {
+      events: data,
+    },
+  };
 }

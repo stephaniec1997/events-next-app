@@ -8,6 +8,8 @@ import AddIcon from '@material-ui/icons/Add';
 import Form from 'components/form';
 import Events from 'components/events';
 
+import {EVENTS} from 'helpers/mock-data';
+
 const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
@@ -24,7 +26,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const Admin = () => {
+const Admin = ({events}) => {
   const classes = useStyles();
 
   return (
@@ -52,9 +54,19 @@ const Admin = () => {
            <AddIcon /> New Event
         </Button>
       </Link>
-      <Events edit />
+      <Events data={events} edit />
     </Container>
   );
 };
+
+export async function getServerSideProps() {
+  const data = EVENTS; // TODO: Actually fetch this data
+
+  return {
+    props: {
+      events: data,
+    },
+  };
+}
 
 export default Admin;

@@ -1,16 +1,18 @@
-import EventForm from 'components/events/event-form';
+import Event from 'components/events/event';
+import List from '@material-ui/core/List';
 
 import EventModel from 'models/event';
 
 import {EVENT} from 'helpers/mock-data';
 
-
-const Event = ({event}) => {
+const EventPage = ({event}) => {
   const eventData = new EventModel(event);
 
   return (
-      <EventForm event={eventData}/>
-    );
+    <List>
+      <Event event={eventData}/>
+    </List>
+  );
 };
 
 export async function getServerSideProps({params}) {
@@ -31,4 +33,4 @@ export async function getServerSideProps({params}) {
 }
 
 
-export default Event;
+export default EventPage;
