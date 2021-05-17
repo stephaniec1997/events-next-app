@@ -51,8 +51,6 @@ const Form = ({title, fields, buttonTitle}) => {
     setValues({ ...values, [prop]: value });
   };
 
-  console.log(values);
-
   return (
       <Card className={classes.root}>
         <CardHeader title={title} />
