@@ -18,7 +18,7 @@ const EventPage = ({event}) => {
 export async function getServerSideProps({params}) {
   const data = EVENT;// TODO: Actually fetch this data
 
-  if (!Math.floor(Math.random() * 2)) { // TODO: replace condition with !data
+  if (!data) { 
     return {
       notFound: true,
     };
