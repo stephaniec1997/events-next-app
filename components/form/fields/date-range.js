@@ -62,6 +62,9 @@ const EventForm = ({values, setValues, className}) => {
               <DateTimePicker
                 value={values.end}
                 disablePast
+                minDate={values.start}
+                strictCompareDates
+                minDateMessage='Date and time should be after start date'
                 inputVariant="outlined"
                 onChange={handleDateChange('end')}
                 label="End Date"
