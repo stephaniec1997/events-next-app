@@ -2,10 +2,10 @@ import EventForm from 'components/events/event-form';
 
 import EventModel from 'models/event';
 
-import {EVENT} from 'helpers/mock-data';
+import { EVENT } from 'helpers/mock-data';
 
 
-const Event = ({event}) => {
+const Event = ({ event }) => {
   const eventData = new EventModel(event);
 
   return (
@@ -13,7 +13,7 @@ const Event = ({event}) => {
     );
 };
 
-export async function getServerSideProps({params}) {
+export async function getServerSideProps({ params }) {
   const data = EVENT;// TODO: Actually fetch this data
 
   if (!data) {

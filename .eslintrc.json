@@ -29,7 +29,8 @@
         "asyncArrow": "always"
       }],
       "arrow-parens": [2, "as-needed", { "requireForBlockBody": true }],
-      "template-curly-spacing": "off",
+      "template-curly-spacing": ["error", "never"],
+      "object-curly-spacing": ["error", "always"],
       "indent": "off"
     },
     "globals": {

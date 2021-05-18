@@ -22,7 +22,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const EventForm = ({values, setValues, className}) => {
+const EventForm = ({ values, setValues, className }) => {
   const classes = useStyles();
 
   const handleSwitchChange = prop => (event) => {

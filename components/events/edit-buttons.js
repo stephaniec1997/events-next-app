@@ -5,7 +5,7 @@ import Link from 'next/link';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 
-const EditButtons = ({id}) => {
+const EditButtons = ({ id }) => {
 
   const onDelete=()=>{
     console.log(`TODO: DELETE BY ID: ${id}`);

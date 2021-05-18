@@ -1,6 +1,6 @@
 import Form from 'components/form';
 
-const EventForm = ({event}) => {
+const EventForm = ({ event }) => {
   event = event? event: {};
 
   const createEvent = (newEvent) => {
@@ -33,7 +33,7 @@ const EventForm = ({event}) => {
     <Form
       title={event.id? 'Edit Event':'New Event'}
       fields={[
-        {label:'name', type:'text', value: event.name},
+        { label:'name', type:'text', value: event.name },
         {
           label:'date',
           type:'date',
@@ -43,8 +43,8 @@ const EventForm = ({event}) => {
             allDay: event.allDay,
           },
         },
-        {label:'place', type:'location', value: event.place},
-        {label:'description', type:'long', value: event.description},
+        { label:'place', type:'location', value: event.place },
+        { label:'description', type:'long', value: event.description },
       ]}
       buttonTitle={event.id? 'Save Edits':'Create Event'}
       onSubmit={handleSubmit}

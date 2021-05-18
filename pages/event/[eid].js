@@ -3,9 +3,9 @@ import List from '@material-ui/core/List';
 
 import EventModel from 'models/event';
 
-import {EVENT} from 'helpers/mock-data';
+import { EVENT } from 'helpers/mock-data';
 
-const EventPage = ({event}) => {
+const EventPage = ({ event }) => {
   const eventData = new EventModel(event);
 
   return (
@@ -15,7 +15,7 @@ const EventPage = ({event}) => {
   );
 };
 
-export async function getServerSideProps({params}) {
+export async function getServerSideProps({ params }) {
   const data = EVENT;// TODO: Actually fetch this data
 
   if (!data) { 

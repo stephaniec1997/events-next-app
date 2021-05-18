@@ -1,5 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles';
-import {capitalize} from 'lodash';
+import { capitalize } from 'lodash';
 
 import DateRangeField from 'components/form/fields/date-range';
 import LocationField from 'components/form/fields/location';
@@ -14,7 +14,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const Form = ({label, type, value, onChange}) => {
+const Form = ({ label, type, value, onChange }) => {
   const classes = useStyles();
 
   const handleChange = (e) => {

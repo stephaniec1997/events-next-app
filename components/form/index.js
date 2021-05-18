@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -22,7 +22,7 @@ const useStyles = makeStyles(theme => ({
 
 const initialState = (fields) => {
   const state = {};
-  fields.map(({label, type, value}) => {
+  fields.map(({ label, type, value }) => {
     switch (type) {
       case 'date':
         state[label] = value || {
@@ -42,7 +42,7 @@ const initialState = (fields) => {
   return state;
 };
 
-const Form = ({title, fields, buttonTitle, onSubmit}) => {
+const Form = ({ title, fields, buttonTitle, onSubmit }) => {
   const classes = useStyles();
   const [values, setValues] = useState(initialState(fields));
 
@@ -58,7 +58,7 @@ const Form = ({title, fields, buttonTitle, onSubmit}) => {
       <Card className={classes.root}>
         <CardHeader title={title} />
         <CardContent className={classes.fields}>
-          {fields.map(({label, type}) =>{
+          {fields.map(({ label, type }) => {
               return (
                 <FormFields
                   key={label}

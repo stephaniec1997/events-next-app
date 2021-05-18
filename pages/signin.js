@@ -1,11 +1,11 @@
-import {useState} from 'react';
+import { useState } from 'react';
 import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
 
 import Form from 'components/form';
 import FormError from 'components/form/error';
 
-import {validateForm} from 'utils';
+import { validateForm } from 'utils';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -45,9 +45,9 @@ const SignIn = () => {
       <Form
         title={'Sign Up'}
         fields={[
-          {label:'username', type:'text'},
-          {label:'email', type:'text'},
-          {label:'password', type:'password'},
+          { label:'username', type:'text' },
+          { label:'email', type:'text' },
+          { label:'password', type:'password' },
         ]}
         buttonTitle={'Create Account'}
         onSubmit={createUser}
@@ -55,8 +55,8 @@ const SignIn = () => {
       <Form
         title={'Log In'}
         fields={[
-          {label:'email', type:'text'},
-          {label:'password', type:'password'},
+          { label:'email', type:'text' },
+          { label:'password', type:'password' },
         ]}
         buttonTitle={'Log In'}
         onSubmit={login}

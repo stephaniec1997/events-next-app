@@ -11,7 +11,7 @@ import LocationOption from 'components/form/fields/location-option';
 
 import throttle from 'lodash/throttle';
 
-import {GOOGLE_API_KEY} from 'constants';
+import { GOOGLE_API_KEY } from 'constants';
 
 function loadScript(src, position, id) {
   if (!position) {
@@ -27,7 +27,7 @@ function loadScript(src, position, id) {
 
 const autocompleteService = { current: null };
 
-const GoogleMapsLocation = ({value, setValue}) => {
+const GoogleMapsLocation = ({ value, setValue }) => {
   const [inputValue, setInputValue] = useState('');
   const [options, setOptions] = useState([]);
   const loaded = useRef(false);

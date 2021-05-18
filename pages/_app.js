@@ -5,7 +5,7 @@ import { ThemeProvider } from '@material-ui/core/styles';
 import DarkModeContext from 'contexts/dark-mode';
 
 import Navbar from 'components/navbar';
-import {darkTheme, lightTheme} from 'styles/theme';
+import { darkTheme, lightTheme } from 'styles/theme';
 
 function MyApp({ Component, pageProps }) {
   const [isDarkMode, setDarkMode] = useState(true);
@@ -13,7 +13,7 @@ function MyApp({ Component, pageProps }) {
   const theme = isDarkMode ? darkTheme : lightTheme;
 
   return(
-    <DarkModeContext.Provider value={{isDarkMode, setDarkMode}}>
+    <DarkModeContext.Provider value={{ isDarkMode, setDarkMode }}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <Navbar />

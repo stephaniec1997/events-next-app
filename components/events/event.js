@@ -18,7 +18,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const Event = ({event, edit, ...props}) => {
+const Event = ({ event, edit, ...props }) => {
   const classes = useStyles();
 
   const buttonProps = edit? {}: props;

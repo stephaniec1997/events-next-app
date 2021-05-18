@@ -1,4 +1,4 @@
-import {capitalize,toLower, trim} from 'lodash';
+import { capitalize,toLower, trim } from 'lodash';
 
 export const validateEmail = (email) =>  {
   email = trim(toLower(email));

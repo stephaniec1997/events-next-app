@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
 import Container from '@material-ui/core/Container';
 import Divider from '@material-ui/core/Divider';
@@ -10,8 +10,8 @@ import Form from 'components/form';
 import Events from 'components/events';
 import FormError from 'components/form/error';
 
-import {EVENTS} from 'helpers/mock-data';
-import {validateForm} from 'utils';
+import { EVENTS } from 'helpers/mock-data';
+import { validateForm } from 'utils';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -29,7 +29,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const Admin = ({events}) => {
+const Admin = ({ events }) => {
   const classes = useStyles();
   const [error, setError] = useState(null);
 
@@ -57,13 +57,13 @@ const Admin = ({events}) => {
       <Container className={classes.adminChanges}>
         <Form
           title='New Admin'
-          fields={[{label: 'email', type:'text'}]}
+          fields={[{ label: 'email', type:'text' }]}
           buttonTitle='Add New Admin'
           onSubmit={addAdmin}
         />
         <Form
           title='Remove Admin'
-          fields={[{label: 'email', type:'text'}]}
+          fields={[{ label: 'email', type:'text' }]}
           buttonTitle='Remove Admin'
           onSubmit={removeAdmin}
         />

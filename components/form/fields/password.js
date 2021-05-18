@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import { useState } from 'react';
 import IconButton from '@material-ui/core/IconButton';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -7,7 +7,7 @@ import FormControl from '@material-ui/core/FormControl';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 
-const PasswordField = ({password, setPassword, className})=> {
+const PasswordField = ({ password, setPassword, className }) => {
   const [showPassword, setShowPassword] = useState({
     showPassword: false,
   });

@@ -2,9 +2,9 @@ import Head from 'next/head';
 
 import Events from 'components/events';
 
-import {EVENTS} from 'helpers/mock-data';
+import { EVENTS } from 'helpers/mock-data';
 
-export default function Home({events}) {
+export default function Home({ events }) {
   return (
     <div >
       <Head>

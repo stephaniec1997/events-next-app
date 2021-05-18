@@ -12,7 +12,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const LocationOption = ({option}) => {
+const LocationOption = ({ option }) => {
   const classes = useStyles();
 
   const location = new LocationOptionModel(option);

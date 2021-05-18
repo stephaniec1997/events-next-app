@@ -5,7 +5,7 @@ import Divider from '@material-ui/core/Divider';
 
 import EventsModel from 'models/events';
 
-const Events = ({data, edit}) => {
+const Events = ({ data, edit }) => {
   const events = new EventsModel(data);
 
   return (

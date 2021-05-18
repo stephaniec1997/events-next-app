@@ -24,4 +24,4 @@ export const EVENTS = {
     description: 'The description of the event is here. And only here',
   },
   EVENT,
-]};
+] };
