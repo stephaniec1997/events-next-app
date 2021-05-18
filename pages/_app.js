@@ -2,9 +2,10 @@ import { useState } from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { ThemeProvider } from '@material-ui/core/styles';
 
+import Navbar from 'components/navbar';
+
 import DarkModeContext from 'contexts/dark-mode';
 
-import Navbar from 'components/navbar';
 import { darkTheme, lightTheme } from 'styles/theme';
 
 function MyApp({ Component, pageProps }) {

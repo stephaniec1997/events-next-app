@@ -1,5 +1,6 @@
-import Event from 'components/events/event';
 import List from '@material-ui/core/List';
+
+import Event from 'components/events/event';
 
 import EventModel from 'models/event';
 
@@ -18,7 +19,7 @@ const EventPage = ({ event }) => {
 export async function getServerSideProps({ params }) {
   const data = EVENT;// TODO: Actually fetch this data
 
-  if (!data) { 
+  if (!data) {
     return {
       notFound: true,
     };

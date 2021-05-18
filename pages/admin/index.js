@@ -4,8 +4,8 @@ import Container from '@material-ui/core/Container';
 import Divider from '@material-ui/core/Divider';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
-
 import AddIcon from '@material-ui/icons/Add';
+
 import Form from 'components/form';
 import Events from 'components/events';
 import FormError from 'components/form/error';

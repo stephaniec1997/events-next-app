@@ -1,13 +1,13 @@
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Switch from '@material-ui/core/Switch';
 import MomentUtils from '@date-io/moment';
 import {
   MuiPickersUtilsProvider,
   DatePicker,
   DateTimePicker,
 } from '@material-ui/pickers';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Switch from '@material-ui/core/Switch';
 
 const useStyles = makeStyles(theme => ({
   dates: {

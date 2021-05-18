@@ -6,10 +6,9 @@ import {
 } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
+import throttle from 'lodash/throttle';
 
 import LocationOption from 'components/form/fields/location-option';
-
-import throttle from 'lodash/throttle';
 
 import { GOOGLE_API_KEY } from 'constants';
 

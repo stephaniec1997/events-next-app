@@ -12,7 +12,6 @@ const PasswordField = ({ password, setPassword, className }) => {
     showPassword: false,
   });
 
-
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
   };

@@ -4,7 +4,6 @@ import EventModel from 'models/event';
 
 import { EVENT } from 'helpers/mock-data';
 
-
 const Event = ({ event }) => {
   const eventData = new EventModel(event);
 

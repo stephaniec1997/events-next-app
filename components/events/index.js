@@ -1,7 +1,8 @@
 import Link from 'next/link';
 import List from '@material-ui/core/List';
-import Event from 'components/events/event';
 import Divider from '@material-ui/core/Divider';
+
+import Event from 'components/events/event';
 
 import EventsModel from 'models/events';
 

@@ -1,5 +1,5 @@
-import { isArray } from 'lodash';
 import parse from 'autosuggest-highlight/parse';
+import { isArray } from 'lodash';
 
 export default class LocationOption {
   constructor(data = '') {
