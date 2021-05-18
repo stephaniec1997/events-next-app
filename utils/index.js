@@ -1,22 +1,25 @@
-import { capitalize,toLower, trim } from 'lodash';
+import { capitalize, toLower, trim } from "lodash";
 
-export const validateEmail = (email) =>  {
+export const validateEmail = (email) => {
   email = trim(toLower(email));
   const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   return re.test(String(email).toLowerCase());
 };
 
-export const validateForm =(data) => {
+export const validateForm = (data) => {
+  if (!data) {
+    return "Form is currently not recieving data. Try again later.";
+  }
   let error;
   Object.entries(data).forEach(([key, value]) => {
-    if(!value || value==='') {
-      error = (`${capitalize(key)} cannot be empty.`);
+    if (!value || value === "") {
+      error = `${capitalize(key)} cannot be empty.`;
       return;
     }
-    if(key === 'email'){
+    if (key === "email") {
       const isValidEmail = validateEmail(value);
-      if(!isValidEmail){
-        error = 'Email is not valid';
+      if (!isValidEmail) {
+        error = "Email is not valid.";
         return;
       }
     }
