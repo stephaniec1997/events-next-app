@@ -13,5 +13,7 @@
   "moduleDirectories": [
     "node_modules",
     "."
-  ]
+  ],
+  "setupFilesAfterEnv": ["<rootDir>/setuptests.js"]
+
 }

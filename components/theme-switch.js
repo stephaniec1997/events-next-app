@@ -1,6 +1,6 @@
-import { useContext } from 'react';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Switch from '@material-ui/core/Switch';
+import { useContext } from "react";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Switch from "@material-ui/core/Switch";
 
 import DarkModeContext from "contexts/dark-mode";
 
