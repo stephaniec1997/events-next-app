@@ -8,9 +8,7 @@ import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 
 const PasswordField = ({ password, setPassword, className }) => {
-  const [showPassword, setShowPassword] = useState({
-    showPassword: false,
-  });
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
