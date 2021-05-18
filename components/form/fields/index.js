@@ -1,4 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles';
+import {capitalize} from 'lodash';
 
 import DateRangeField from 'components/form/fields/date-range';
 import LocationField from 'components/form/fields/location';
@@ -28,6 +29,8 @@ const Form = ({label, type, value, onChange}) => {
     }
   };
 
+  const fieldLabel = capitalize(label);
+
   switch (type) {
     case 'date':
       return (
@@ -54,7 +57,7 @@ const Form = ({label, type, value, onChange}) => {
     case 'long':
       return(
         <TextField
-          label={label.slice(0,1).toUpperCase() + label.slice(1)}
+          label={fieldLabel}
           value={value}
           onChange={handleChange}
           className={classes.field}
@@ -65,7 +68,7 @@ const Form = ({label, type, value, onChange}) => {
     default:
       return(
         <TextField
-          label={label.slice(0,1).toUpperCase() + label.slice(1)}
+          label={fieldLabel}
           value={value}
           onChange={handleChange}
           className={classes.field}

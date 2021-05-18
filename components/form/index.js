@@ -7,7 +7,6 @@ import Button from '@material-ui/core/Button';
 
 import FormFields from 'components/form/fields/';
 
-
 const useStyles = makeStyles(theme => ({
   root:{
     margin: theme.spacing(1),

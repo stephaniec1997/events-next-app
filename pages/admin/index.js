@@ -1,3 +1,4 @@
+import {useState} from 'react';
 import Link from 'next/link';
 import Container from '@material-ui/core/Container';
 import Divider from '@material-ui/core/Divider';
@@ -7,8 +8,10 @@ import { makeStyles } from '@material-ui/core/styles';
 import AddIcon from '@material-ui/icons/Add';
 import Form from 'components/form';
 import Events from 'components/events';
+import FormError from 'components/form/error';
 
 import {EVENTS} from 'helpers/mock-data';
+import {validateForm} from 'utils';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -28,19 +31,29 @@ const useStyles = makeStyles(theme => ({
 
 const Admin = ({events}) => {
   const classes = useStyles();
+  const [error, setError] = useState(null);
 
-  const removeAdmin = ({email}) => {
-    // TODO: verify email is email b4 sending to api
-    console.log('removing user as admin', email);
+  const removeAdmin = (data) => {
+    setError(null);
+    const formErrors = validateForm(data);
+    if(formErrors) {
+      return setError(formErrors);
+    }
+    console.log('removing user as admin');
   };
 
-  const addAdmin = ({email}) => {
-    // TODO: verify email is email b4 sending to api
-    console.log('adding user as admin', email);
+  const addAdmin = (data) => {
+    setError(null);
+    const formErrors = validateForm(data);
+    if(formErrors) {
+      return setError(formErrors);
+    }
+    console.log('adding user as admin');
   };
 
   return (
     <Container className={classes.root}>
+      <FormError error={error} setOpen={setError}/>
       <Container className={classes.adminChanges}>
         <Form
           title='New Admin'

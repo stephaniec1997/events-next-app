@@ -1,7 +1,11 @@
+import {useState} from 'react';
 import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
 
 import Form from 'components/form';
+import FormError from 'components/form/error';
+
+import {validateForm} from 'utils';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -12,21 +16,32 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+
+
 const SignIn = () => {
   const classes = useStyles();
+  const [error, setError] = useState(null);
 
-  const createUser = ({email, username, password}) =>{
-    // TODO: verify email is email b4 sending to api
-    console.log('adding a new user',{email, username, password} );
+
+  const createUser = (data) =>{
+    const formErrors = validateForm(data);
+    if(formErrors) {
+      return setError(formErrors);
+    }
+    console.log('adding a new user');
   };
 
-  const login = ({email, password}) =>{
-    // TODO: verify email is email b4 sending to api
-    console.log('logging in user',{email, password} );
+  const login = (data) =>{
+    const formErrors = validateForm(data);
+    if(formErrors) {
+      return setError(formErrors);
+    }
+    console.log('logging in user', formErrors);
   };
 
   return(
     <Container className={classes.root}>
+      <FormError error={error} setOpen={setError}/>
       <Form
         title={'Sign Up'}
         fields={[
