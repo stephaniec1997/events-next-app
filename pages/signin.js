@@ -16,12 +16,9 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-
-
 const SignIn = () => {
   const classes = useStyles();
   const [error, setError] = useState(null);
-
 
   const createUser = (data) =>{
     const formErrors = validateForm(data);

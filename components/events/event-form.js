@@ -52,5 +52,4 @@ const EventForm = ({ event }) => {
   );
 };
 
-
 export default EventForm;

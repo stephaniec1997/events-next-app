@@ -43,7 +43,6 @@ const GoogleMapsLocation = ({ value, setValue }) => {
     loaded.current = true;
   }
 
-
   // https://stackoverflow.com/questions/64203690/why-is-usememo-used-in-the-material-ui-documentation-for-the-autocomplete
   const fetch = useMemo(
     () =>

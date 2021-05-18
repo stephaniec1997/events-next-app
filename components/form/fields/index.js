@@ -6,7 +6,6 @@ import LocationField from 'components/form/fields/location';
 import PasswordField from 'components/form/fields/password';
 import TextField from 'components/form/fields/text';
 
-
 const useStyles = makeStyles(theme => ({
   field: {
     marginTop: theme.spacing(1),
