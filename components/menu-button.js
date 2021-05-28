@@ -1,23 +1,27 @@
-import { useState, useRef, useEffect } from 'react';
-import Link from 'next/link';
-import IconButton from '@material-ui/core/IconButton';
-import ClickAwayListener from '@material-ui/core/ClickAwayListener';
-import Grow from '@material-ui/core/Grow';
-import Paper from '@material-ui/core/Paper';
-import Popper from '@material-ui/core/Popper';
-import MenuItem from '@material-ui/core/MenuItem';
-import MenuList from '@material-ui/core/MenuList';
-import MenuIcon from '@material-ui/icons/Menu';
-import { makeStyles } from '@material-ui/core/styles';
+import { useState, useRef, useEffect } from "react";
+import Link from "next/link";
+import IconButton from "@material-ui/core/IconButton";
+import ClickAwayListener from "@material-ui/core/ClickAwayListener";
+import Grow from "@material-ui/core/Grow";
+import Paper from "@material-ui/core/Paper";
+import Popper from "@material-ui/core/Popper";
+import MenuItem from "@material-ui/core/MenuItem";
+import MenuList from "@material-ui/core/MenuList";
+import MenuIcon from "@material-ui/icons/Menu";
+import { makeStyles } from "@material-ui/core/styles";
+
+import { useAuthenticationContext } from "contexts/authentication";
 
 const useStyles = makeStyles(() => ({
-  menuContainer:{
+  menuContainer: {
     zIndex: 1000,
   },
 }));
 
 const MenuButton = () => {
   const classes = useStyles();
+
+  const auth = useAuthenticationContext();
 
   const [open, setOpen] = useState(false);
   const anchorRef = useRef(null);
@@ -43,7 +47,7 @@ const MenuButton = () => {
   };
 
   function handleListKeyDown(event) {
-    if (event.key === 'Tab') {
+    if (event.key === "Tab") {
       event.preventDefault();
       setOpen(false);
     }
@@ -60,26 +64,44 @@ const MenuButton = () => {
           color="inherit"
           aria-label="menu"
           ref={anchorRef}
-          aria-controls={open ? 'menu-list-grow' : undefined}
+          aria-controls={open ? "menu-list-grow" : undefined}
           aria-haspopup="true"
           onClick={handleToggle}
         >
           <MenuIcon />
         </IconButton>
-        <Popper className={classes.menuContainer} open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
+        <Popper
+          className={classes.menuContainer}
+          open={open}
+          anchorEl={anchorRef.current}
+          role={undefined}
+          transition
+          disablePortal
+        >
           {({ TransitionProps, placement }) => (
             <Grow
               {...TransitionProps}
-              style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
+              style={{
+                transformOrigin:
+                  placement === "bottom" ? "center top" : "center bottom",
+              }}
             >
               <Paper>
                 <ClickAwayListener onClickAway={handleClose}>
-                  <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
-                    <Link href="/signin">
-                      <MenuItem onClick={handleClose}>
-                        Sign In
+                  <MenuList
+                    autoFocusItem={open}
+                    id="menu-list-grow"
+                    onKeyDown={handleListKeyDown}
+                  >
+                    {auth.user ? (
+                      <MenuItem onClick={() => auth.signout()}>
+                        Sign Out
                       </MenuItem>
-                    </Link>
+                    ) : (
+                      <Link href="/signin">
+                        <MenuItem onClick={handleClose}>Sign In</MenuItem>
+                      </Link>
+                    )}
 
                     {/*<MenuItem onClick={handleClose}>My account</MenuItem>
                     <MenuItem onClick={handleClose}>Logout</MenuItem>*/}

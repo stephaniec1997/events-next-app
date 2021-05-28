@@ -1,12 +1,12 @@
-import Head from 'next/head';
+import Head from "next/head";
 
-import Events from 'components/events';
+import Events from "components/events";
 
-import { EVENTS } from 'helpers/mock-data';
+import { EVENTS } from "helpers/mock-data";
 
 export default function Home({ events }) {
   return (
-    <div >
+    <>
       <Head>
         <title>Events</title>
         <meta name="description" content="A list of Events created by admin" />
@@ -16,15 +16,10 @@ export default function Home({ events }) {
           content="minimum-scale=1, initial-scale=1, width=device-width"
         />
       </Head>
-
       <main>
-          <Events data={events}/>
+        <Events data={events} />
       </main>
-
-      <footer >
-
-      </footer>
-    </div>
+    </>
   );
 }
 
