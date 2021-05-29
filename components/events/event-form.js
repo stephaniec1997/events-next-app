@@ -1,25 +1,27 @@
-import Form from 'components/form';
+import Form from "components/form";
 
 const EventForm = ({ event }) => {
-  event = event? event: {};
+  event = event ? event : {};
 
   const createEvent = (newEvent) => {
-    console.log('creating event', newEvent);
+    console.log("creating event", newEvent);
   };
 
   const editEvent = (updatedEvent) => {
     console.log(`editing ${event.id} event`, updatedEvent);
-
   };
 
-  const handleSubmit = (newEvent) =>{
+  const handleSubmit = (newEvent) => {
     const eid = event.id;
     const newEventData = {
       name: newEvent.name,
       startDate: newEvent.date.start,
-      endDate:newEvent.date.end,
+      endDate: newEvent.date.end,
       allDay: newEvent.date.allDay,
-      place: typeof newEvent.place === 'string' ? event.place : event.place.description,
+      place:
+        typeof newEvent.place === "string"
+          ? newEvent.place
+          : newEvent.place.description,
       description: newEvent.description,
     };
     if (eid) {
@@ -29,24 +31,24 @@ const EventForm = ({ event }) => {
     }
   };
 
-  return(
+  return (
     <Form
-      title={event.id? 'Edit Event':'New Event'}
+      title={event.id ? "Edit Event" : "New Event"}
       fields={[
-        { label:'name', type:'text', value: event.name },
+        { label: "name", type: "text", value: event.name },
         {
-          label:'date',
-          type:'date',
+          label: "date",
+          type: "date",
           value: {
-            start: event.startDate,
-            end:event.endDate,
-            allDay: event.allDay,
+            start: event.startDate || new Date(),
+            end: event.endDate,
+            allDay: event.allDay || false,
           },
         },
-        { label:'place', type:'location', value: event.place },
-        { label:'description', type:'long', value: event.description },
+        { label: "place", type: "location", value: event.place },
+        { label: "description", type: "long", value: event.description },
       ]}
-      buttonTitle={event.id? 'Save Edits':'Create Event'}
+      buttonTitle={event.id ? "Save Edits" : "Create Event"}
       onSubmit={handleSubmit}
     />
   );
