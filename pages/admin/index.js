@@ -14,6 +14,7 @@ import FormError from "components/form/error";
 
 import { validateForm } from "utils";
 import { verifyAdmin, getEvents } from "utils/firebase/admin";
+import { addAdminByEmail, removeAdminByEmail } from "utils/api";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -41,7 +42,7 @@ const Admin = ({ events, message, err }) => {
     if (formErrors) {
       return setError(formErrors);
     }
-    console.log("removing user as admin");
+    removeAdminByEmail(data.email); // TODO: give a response
   };
 
   const addAdmin = (data) => {
@@ -50,7 +51,7 @@ const Admin = ({ events, message, err }) => {
     if (formErrors) {
       return setError(formErrors);
     }
-    console.log("adding user as admin");
+    addAdminByEmail(data.email); // TODO: give a response
   };
   if (err) return <Typography variant="h4">{err}</Typography>; // TODO: handle this with next error page cmpnt
 
@@ -84,14 +85,13 @@ const Admin = ({ events, message, err }) => {
 };
 
 export const getServerSideProps = async (ctx) => {
-  const data = await getEvents();
-
   try {
     const cookies = nookies.get(ctx);
 
     const isUserAdmin = await verifyAdmin(cookies.token);
 
     if (isUserAdmin) {
+      const data = await getEvents();
       return {
         props: {
           events: data,

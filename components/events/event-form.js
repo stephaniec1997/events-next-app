@@ -6,20 +6,13 @@ import Form from "components/form";
 import FormError from "components/form/error";
 
 import { validateForm } from "utils";
+import { addEvent, updateEvent } from "utils/api";
 
 const EventForm = ({ event }) => {
   const router = useRouter();
   const [error, setError] = useState(null);
 
   event = event ? event : {};
-
-  const createEvent = (newEvent) => {
-    console.log("creating event", newEvent);
-  };
-
-  const editEvent = (updatedEvent) => {
-    console.log(`editing ${event.id} event`, updatedEvent);
-  };
 
   const handleSubmit = (newEvent) => {
     const eid = event.id;
@@ -42,9 +35,9 @@ const EventForm = ({ event }) => {
     }
 
     if (eid) {
-      editEvent(newEventData);
+      updateEvent(eid, newEventData); // TODO: give response
     } else {
-      createEvent(newEventData);
+      addEvent(newEventData); // TODO: give reepsonse
     }
 
     router.back();
@@ -61,8 +54,8 @@ const EventForm = ({ event }) => {
             label: "date",
             type: "date",
             value: {
-              start: event.startDate || moment(),
-              end: event.endDate || moment(),
+              start: moment(event.startDate) || moment(),
+              end: moment(event.endDate) || moment(),
               allDay: event.allDay || false,
             },
           },

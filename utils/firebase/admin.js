@@ -12,8 +12,6 @@ if (!admin.apps.length) {
   });
 }
 
-var db = admin.firestore();
-var eventsRef = db.collection("events");
 
 export const verifyAdmin = (token) => {
   return admin
@@ -23,9 +21,28 @@ export const verifyAdmin = (token) => {
       if (claims.admin === true) {
         return true;
       }
+      return false;
     });
 };
 
+
+// ------------- ADMIN FUNCTIONS  --------------- //
+
+export const getUserByEmail = email => admin.auth().getUserByEmail(email);
+
+export const addAdmin = user =>
+  admin.auth().setCustomUserClaims(user.uid, { admin: true });
+
+export const removeAdmin = user =>
+  admin.auth().setCustomUserClaims(user.uid, { admin: false });
+
+
+// ------------- EVENTS FUNCTIONS  --------------- //
+
+var db = admin.firestore();
+var eventsRef = db.collection("events");
+
+// main functions
 export const getEvents = async () => {
   const snapshot = await eventsRef.get();
   let events = [];
@@ -48,6 +65,32 @@ export const getEvent = async (id) => {
   return serializeData(doc);
 };
 
+export const addEvent = (data) => {
+  console.log("adding an event");
+  const timestamp = admin.firestore.FieldValue.serverTimestamp();
+  return eventsRef.add({
+    ...data,
+    startDate: dateToTimestamp(data.startDate),
+    endDate: dateToTimestamp(data.endDate),
+    createdAt: timestamp,
+  });
+};
+
+export const updateEvent = (id, updatedData) => {
+  console.log("updating an event");
+  return eventsRef.doc(id).update({
+    ...updatedData,
+    startDate: dateToTimestamp(updatedData.startDate),
+    endDate: dateToTimestamp(updatedData.endDate),
+  });
+};
+
+export const deleteEvent = (id) => {
+  console.log("deleting an event");
+  return eventsRef.doc(id).delete();
+};
+
+// helper functions
 const serializeData = (doc) => {
   const data = doc.data();
   return {
@@ -59,53 +102,5 @@ const serializeData = (doc) => {
   };
 };
 
-export const addAdmin = (email) => {
-  // TODO: verify admin
-  admin
-    .auth()
-    .getUserByEmail(email)
-    .then(res => res.toJSON())
-    .then((user) => {
-      admin.auth().setCustomUserClaims(user.uid, { admin: true });
-    })
-    .catch((error) => {
-      console.log("Error fetching user data:", error);
-    });
-};
-
-export const removeAdmin = (email) => {
-  // TODO: verify admin
-  admin
-    .auth()
-    .getUserByEmail(email)
-    .then(res => res.toJSON())
-    .then((user) => {
-      admin.auth().setCustomUserClaims(user.uid, { admin: false });
-    })
-    .catch((error) => {
-      console.log("Error fetching user data:", error);
-    });
-};
-
-export const addEvent = (data) => {
-  // TODO: verify admin
-  console.log("adding an event");
-  const timestamp = admin.firestore.FieldValue.serverTimestamp();
-
-  return eventsRef.add({
-    ...data,
-    createdAt: timestamp,
-  });
-};
-
-export const updateEvent = (id, updatedData) => {
-  // TODO: verify admin
-  console.log('updating an event');
-  return eventsRef.doc(id).update(updatedData);
-};
-
-export const deleteEvent = (id) => {
-  // TODO: verify admin
-  console.log('deleting an event');
-  return eventsRef.doc(id).delete();
-};
+const dateToTimestamp = date =>
+  admin.firestore.Timestamp.fromDate(new Date(date));
