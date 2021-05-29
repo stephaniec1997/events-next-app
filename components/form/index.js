@@ -42,7 +42,7 @@ const initialState = (fields) => {
   return state;
 };
 
-const Form = ({ title, fields, buttonTitle, onSubmit }) => {
+const Form = ({ title, fields, buttonTitle, onSubmit, disableSubmit }) => {
   const classes = useStyles();
   const [values, setValues] = useState(initialState(fields));
 
@@ -75,6 +75,7 @@ const Form = ({ title, fields, buttonTitle, onSubmit }) => {
             color="primary"
             className={classes.button}
             onClick={handleSubmit}
+            disabled={disableSubmit}
           >
             {buttonTitle}
           </Button>

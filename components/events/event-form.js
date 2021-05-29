@@ -13,11 +13,12 @@ const EventForm = ({ event }) => {
   const router = useRouter();
   const [error, setError] = useState(null);
   const [successMessage, setSuccessMessage] = useState(null);
+  const [disableSubmit, setDisableSubmit] = useState(false);
 
   event = event ? event : {};
 
   const handleSubmit = (newEvent) => {
-    // TODO: disable button on click
+    setDisableSubmit(true);
     const eid = event.id;
     const newEventData = {
       name: newEvent.name,
@@ -43,31 +44,28 @@ const EventForm = ({ event }) => {
         .then((response) => {
           if (response.error) {
             setError(response.error);
+            setDisableSubmit(false);
           } else {
             setSuccessMessage(response.message);
+            setTimeout(() => {
+              router.replace("/admin");
+            }, 500);
           }
-        })
-        .finally(() =>
-          setTimeout(() => {
-            router.replace("/admin");
-          }, 500),
-        );
+        });
     } else {
       addEvent(newEventData)
         .then(res => res.json())
         .then((response) => {
           if (response.error) {
             setError(response.error);
+            setDisableSubmit(false);
           } else {
             setSuccessMessage(response.message);
+            setTimeout(() => {
+              router.replace("/admin");
+            }, 500);
           }
-        })
-        .finally(() =>
-          setTimeout(() => {
-            console.log("-----------hello--------------");
-            router.replace("/admin");
-          }, 500),
-        );
+        });
     }
   };
 
@@ -93,6 +91,7 @@ const EventForm = ({ event }) => {
         ]}
         buttonTitle={event.id ? "Save Edits" : "Create Event"}
         onSubmit={handleSubmit}
+        disableSubmit={disableSubmit}
       />
     </>
   );
