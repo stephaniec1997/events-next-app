@@ -48,6 +48,10 @@ const SignIn = () => {
     });
   };
 
+  if (auth.user) {
+    router.push("/");
+  }
+
   return (
     <Container className={classes.root}>
       <FormError error={error} setOpen={setError} />
