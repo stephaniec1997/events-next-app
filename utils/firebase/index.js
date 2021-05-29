@@ -2,7 +2,11 @@ import { firebase } from "utils/firebase/config";
 
 export const authenticateUser = (observer) => {
   console.log("authenticating user");
-  firebase.auth().onAuthStateChanged(observer);
+  firebase.auth().onIdTokenChanged(observer);
+};
+
+export const getCurrentUser = () => {
+  return firebase.auth().currentUser;
 };
 
 export const signUpUser = (email, password) => {

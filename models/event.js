@@ -1,13 +1,18 @@
-import { isArray } from 'lodash';
+import moment from "moment";
+import { isArray } from "lodash";
 
 export default class Event {
   constructor(data = {}) {
-    this._options = data && typeof data === 'object' && !isArray(data) ? data : {};
+    this._options =
+      data && typeof data === "object" && !isArray(data) ? data : {};
 
-    this._id = this._options._id || null;
+    this._id = this._options.id || null;
     this._name = this._options.name || "New Event";
-    this._start_date = this._options.startDate && new Date(this._options.startDate);
-    this._end_date = this._options.endDate && new Date(this._options.endDate) || null;
+    this._start_date =
+      this._options.startDate && moment(this._options.startDate * 1000);
+    this._end_date =
+      (!this._options.allDay && moment(this._options.endDate * 1000)) || null;
+    this._allDay = this._options.allDay || null;
     this._place = this._options.place || null;
     this._description = this._options.description || null;
   }
@@ -29,7 +34,7 @@ export default class Event {
   }
 
   get allDay() {
-    return !this.endDate;
+    return this._allDay;
   }
 
   get place() {
@@ -41,7 +46,9 @@ export default class Event {
   }
 
   formatDate(date) {
-    if(!date) return null;
-    return date && date.toLocaleString();
+    if (this.allDay) {
+      return date && date.format("dddd LL");
+    }
+    return date && date.format("LLL");
   }
 }

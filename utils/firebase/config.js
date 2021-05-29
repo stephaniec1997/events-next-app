@@ -4,7 +4,7 @@ import "firebase/auth";
 const firebaseConfig = {
   apiKey: "AIzaSyBWGtmSqw9agQWot7gw0MccCIhWcOGx_Mg",
   authDomain: "events-next-app.firebaseapp.com",
-  // databaseURL: "https://YOUR_PROJECT_ID.firebaseio.com",
+  databaseURL: "https://events-next-app-default-rtdb.firebaseio.com/",
   projectId: "events-next-app",
   storageBucket: "events-next-app.appspot.com",
   messagingSenderId: "937052078875",

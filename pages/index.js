@@ -2,7 +2,7 @@ import Head from "next/head";
 
 import Events from "components/events";
 
-import { EVENTS } from "helpers/mock-data";
+import { getEvents } from "utils/firebase/admin";
 
 export default function Home({ events }) {
   return (
@@ -24,7 +24,7 @@ export default function Home({ events }) {
 }
 
 export async function getServerSideProps() {
-  const data = EVENTS; // TODO: Actually fetch this data
+  const data = await getEvents();
 
   return {
     props: {
