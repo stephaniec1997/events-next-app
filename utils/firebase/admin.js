@@ -14,6 +14,7 @@ if (!admin.apps.length) {
 
 var db = admin.firestore();
 var eventsRef = db.collection("events");
+
 export const verifyAdmin = (token) => {
   return admin
     .auth()
@@ -56,4 +57,55 @@ const serializeData = (doc) => {
     createdAt: data.createdAt.seconds,
     id: doc.id,
   };
+};
+
+export const addAdmin = (email) => {
+  // TODO: verify admin
+  admin
+    .auth()
+    .getUserByEmail(email)
+    .then(res => res.toJSON())
+    .then((user) => {
+      admin.auth().setCustomUserClaims(user.uid, { admin: true });
+    })
+    .catch((error) => {
+      console.log("Error fetching user data:", error);
+    });
+};
+
+export const removeAdmin = (email) => {
+  // TODO: verify admin
+  admin
+    .auth()
+    .getUserByEmail(email)
+    .then(res => res.toJSON())
+    .then((user) => {
+      admin.auth().setCustomUserClaims(user.uid, { admin: false });
+    })
+    .catch((error) => {
+      console.log("Error fetching user data:", error);
+    });
+};
+
+export const addEvent = (data) => {
+  // TODO: verify admin
+  console.log("adding an event");
+  const timestamp = admin.firestore.FieldValue.serverTimestamp();
+
+  return eventsRef.add({
+    ...data,
+    createdAt: timestamp,
+  });
+};
+
+export const updateEvent = (id, updatedData) => {
+  // TODO: verify admin
+  console.log('updating an event');
+  return eventsRef.doc(id).update(updatedData);
+};
+
+export const deleteEvent = (id) => {
+  // TODO: verify admin
+  console.log('deleting an event');
+  return eventsRef.doc(id).delete();
 };
