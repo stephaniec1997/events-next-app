@@ -20,13 +20,15 @@ export default async function userHandler(req, res) {
       try {
         const user = await getUserByEmail(email);
         await addAdmin(user.toJSON());
-        res.status(200).json({ email });
+        res
+          .status(200)
+          .json({ message: `${user.email} has been added as an admin.` });
       } catch (error) {
-        return res.status(401).json({ error: error.message });
+        return res.status(500).json({ error: error.message });
       }
       break;
     default:
       res.setHeader("Allow", ["PUT"]);
-      res.status(405).end(`Method ${method} Not Allowed`);
+      res.status(405).json({ error: `Method ${method} Not Allowed` });
   }
 }

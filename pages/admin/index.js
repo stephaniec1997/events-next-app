@@ -8,9 +8,10 @@ import { makeStyles } from "@material-ui/core/styles";
 import AddIcon from "@material-ui/icons/Add";
 import Typography from "@material-ui/core/Typography";
 
-import Form from "components/form";
 import Events from "components/events";
+import Form from "components/form";
 import FormError from "components/form/error";
+import FormSuccess from "components/form/success";
 
 import { validateForm } from "utils";
 import { verifyAdmin, getEvents } from "utils/firebase/admin";
@@ -35,6 +36,7 @@ const useStyles = makeStyles(theme => ({
 const Admin = ({ events, message, err }) => {
   const classes = useStyles();
   const [error, setError] = useState(null);
+  const [successMessage, setSuccessMessage] = useState(null);
 
   const removeAdmin = (data) => {
     setError(null);
@@ -42,7 +44,18 @@ const Admin = ({ events, message, err }) => {
     if (formErrors) {
       return setError(formErrors);
     }
-    removeAdminByEmail(data.email); // TODO: give a response
+    removeAdminByEmail(data.email)
+      .then(res => res.json())
+      .then((response) => {
+        if (response.error) {
+          setError(response.error);
+        } else {
+          setSuccessMessage(response.message);
+        }
+      })
+      .finally(() => {
+        // TODO: clear field
+      });
   };
 
   const addAdmin = (data) => {
@@ -51,13 +64,26 @@ const Admin = ({ events, message, err }) => {
     if (formErrors) {
       return setError(formErrors);
     }
-    addAdminByEmail(data.email); // TODO: give a response
+    addAdminByEmail(data.email)
+      .then(res => res.json())
+      .then((response) => {
+        if (response.error) {
+          setError(response.error);
+        } else {
+          setSuccessMessage(response.message);
+        }
+      })
+      .finally(() => {
+        // TODO: clear field
+      });
   };
+
   if (err) return <Typography variant="h4">{err}</Typography>; // TODO: handle this with next error page cmpnt
 
   return (
     <Container className={classes.root}>
       <Typography>{message}</Typography>
+      <FormSuccess message={successMessage} setOpen={setSuccessMessage} />
       <FormError error={error} setOpen={setError} />
       <Container className={classes.adminChanges}>
         <Form

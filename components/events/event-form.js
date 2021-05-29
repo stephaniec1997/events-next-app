@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 
 import Form from "components/form";
 import FormError from "components/form/error";
+import FormSuccess from "components/form/success";
 
 import { validateForm } from "utils";
 import { addEvent, updateEvent } from "utils/api";
@@ -11,10 +12,12 @@ import { addEvent, updateEvent } from "utils/api";
 const EventForm = ({ event }) => {
   const router = useRouter();
   const [error, setError] = useState(null);
+  const [successMessage, setSuccessMessage] = useState(null);
 
   event = event ? event : {};
 
   const handleSubmit = (newEvent) => {
+    // TODO: disable button on click
     const eid = event.id;
     const newEventData = {
       name: newEvent.name,
@@ -35,16 +38,42 @@ const EventForm = ({ event }) => {
     }
 
     if (eid) {
-      updateEvent(eid, newEventData); // TODO: give response
+      updateEvent(eid, newEventData)
+        .then(res => res.json())
+        .then((response) => {
+          if (response.error) {
+            setError(response.error);
+          } else {
+            setSuccessMessage(response.message);
+          }
+        })
+        .finally(() =>
+          setTimeout(() => {
+            router.replace("/admin");
+          }, 500),
+        );
     } else {
-      addEvent(newEventData); // TODO: give reepsonse
+      addEvent(newEventData)
+        .then(res => res.json())
+        .then((response) => {
+          if (response.error) {
+            setError(response.error);
+          } else {
+            setSuccessMessage(response.message);
+          }
+        })
+        .finally(() =>
+          setTimeout(() => {
+            console.log("-----------hello--------------");
+            router.replace("/admin");
+          }, 500),
+        );
     }
-
-    router.back();
   };
 
   return (
     <>
+      <FormSuccess message={successMessage} setOpen={setSuccessMessage} />
       <FormError error={error} setOpen={setError} />
       <Form
         title={event.id ? "Edit Event" : "New Event"}
