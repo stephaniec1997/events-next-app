@@ -1,19 +1,19 @@
-import { useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardHeader from '@material-ui/core/CardHeader';
-import CardContent from '@material-ui/core/CardContent';
-import Button from '@material-ui/core/Button';
+import { useState } from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import Card from "@material-ui/core/Card";
+import CardHeader from "@material-ui/core/CardHeader";
+import CardContent from "@material-ui/core/CardContent";
+import Button from "@material-ui/core/Button";
 
-import FormFields from 'components/form/fields/';
+import FormFields from "components/form/fields/";
 
 const useStyles = makeStyles(theme => ({
-  root:{
+  root: {
     margin: theme.spacing(1),
   },
   fields: {
-    display: 'flex',
-    flexDirection:'column',
+    display: "flex",
+    flexDirection: "column",
   },
   button: {
     marginTop: theme.spacing(2),
@@ -24,18 +24,18 @@ const initialState = (fields) => {
   const state = {};
   fields.map(({ label, type, value }) => {
     switch (type) {
-      case 'date':
+      case "date":
         state[label] = value || {
           start: new Date(),
           end: new Date(),
           allDay: false,
         };
         break;
-      case 'location':
-      case 'password':
-      case 'text':
+      case "location":
+      case "password":
+      case "text":
       default:
-        state[label] = value || '';
+        state[label] = value || "";
         break;
     }
   });
@@ -50,37 +50,38 @@ const Form = ({ title, fields, buttonTitle, onSubmit, disableSubmit }) => {
     setValues({ ...values, [prop]: value });
   };
 
-  const handleSubmit = () =>{
+  const handleSubmit = () => {
     onSubmit(values);
   };
 
   return (
-      <Card className={classes.root}>
-        <CardHeader title={title} />
-        <CardContent className={classes.fields}>
-          {fields.map(({ label, type }) => {
-              return (
-                <FormFields
-                  key={label}
-                  label={label}
-                  type={type}
-                  value={values[label]}
-                  onChange={handleChange(label)}
-                />
-              );
-            })}
+    <Card className={classes.root}>
+      <CardHeader title={title} />
+      <CardContent className={classes.fields}>
+        {fields.map(({ label, type }) => {
+          return (
+            <FormFields
+              key={`${title}-${label}`}
+              title={title}
+              label={label}
+              type={type}
+              value={values[label]}
+              onChange={handleChange(label)}
+            />
+          );
+        })}
 
-          <Button
-            variant="contained"
-            color="primary"
-            className={classes.button}
-            onClick={handleSubmit}
-            disabled={disableSubmit}
-          >
-            {buttonTitle}
-          </Button>
-        </CardContent>
-      </Card>
+        <Button
+          variant="contained"
+          color="primary"
+          className={classes.button}
+          onClick={handleSubmit}
+          disabled={disableSubmit}
+        >
+          {buttonTitle}
+        </Button>
+      </CardContent>
+    </Card>
   );
 };
 

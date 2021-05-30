@@ -1,10 +1,10 @@
-import { makeStyles } from '@material-ui/core/styles';
-import { capitalize } from 'lodash';
+import { makeStyles } from "@material-ui/core/styles";
+import { capitalize } from "lodash";
 
-import DateRangeField from 'components/form/fields/date-range';
-import LocationField from 'components/form/fields/location';
-import PasswordField from 'components/form/fields/password';
-import TextField from 'components/form/fields/text';
+import DateRangeField from "components/form/fields/date-range";
+import LocationField from "components/form/fields/location";
+import PasswordField from "components/form/fields/password";
+import TextField from "components/form/fields/text";
 
 const useStyles = makeStyles(theme => ({
   field: {
@@ -13,48 +13,38 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const Form = ({ label, type, value, onChange }) => {
+const Field = ({ title, label, type, value, onChange }) => {
   const classes = useStyles();
 
   const handleChange = (e) => {
     switch (type) {
-      case 'date':
-      case 'location':
+      case "date":
+      case "location":
         return onChange(e);
-      case 'password':
-      case 'text':
+      case "password":
+      case "text":
       default:
         return onChange(e.target.value);
     }
   };
 
   const fieldLabel = capitalize(label);
-
   switch (type) {
-    case 'date':
+    case "date":
+      return <DateRangeField values={value} setValues={handleChange} />;
+    case "location":
+      return <LocationField value={value} setValue={handleChange} />;
+    case "password":
       return (
-        <DateRangeField
-          values={value}
-          setValues={handleChange}
-        />
-      );
-    case 'location':
-      return(
-        <LocationField
-          value={value}
-          setValue={handleChange}
-        />
-      );
-    case 'password':
-      return(
         <PasswordField
+          title={title}
           password={value}
           setPassword={handleChange}
           className={classes.field}
         />
       );
-    case 'long':
-      return(
+    case "long":
+      return (
         <TextField
           label={fieldLabel}
           value={value}
@@ -63,10 +53,11 @@ const Form = ({ label, type, value, onChange }) => {
           multiline
         />
       );
-    case 'text':
+    case "text":
     default:
-      return(
+      return (
         <TextField
+          title={title}
           label={fieldLabel}
           value={value}
           onChange={handleChange}
@@ -76,4 +67,4 @@ const Form = ({ label, type, value, onChange }) => {
   }
 };
 
-export default Form;
+export default Field;

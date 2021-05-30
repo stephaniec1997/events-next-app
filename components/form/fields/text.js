@@ -1,10 +1,10 @@
-import TextField from '@material-ui/core/TextField';
+import TextField from "@material-ui/core/TextField";
 
-const Text = ({ label, value, onChange, className, ...props }) => {
+const Text = ({ title, label, value, onChange, className, ...props }) => {
   return (
     <TextField
       className={className}
-      id={label}
+      id={`${title}-${label}`}
       label={label}
       value={value}
       onChange={onChange}
