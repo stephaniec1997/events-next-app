@@ -34,7 +34,9 @@ const EventForm = ({ event }) => {
     const formErrors = validateForm({ ...newEventData, allDay: true });
 
     if (formErrors) {
-      return setError(formErrors);
+      setError(formErrors);
+      setDisableSubmit(false);
+      return;
     }
 
     let action = () => {};
@@ -52,7 +54,7 @@ const EventForm = ({ event }) => {
       .then((response) => {
         if (response.error) {
           setError(response.error);
-          setDisableSubmit(false); // FIXME: not updating
+          setDisableSubmit(false);
         } else {
           setSuccessMessage(response.message);
           setTimeout(() => {
