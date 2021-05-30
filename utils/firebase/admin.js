@@ -66,7 +66,6 @@ export const getEvent = async (id) => {
 };
 
 export const addEvent = (data) => {
-  console.log("adding an event");
   const timestamp = admin.firestore.FieldValue.serverTimestamp();
   return eventsRef.add({
     ...data,
@@ -77,7 +76,6 @@ export const addEvent = (data) => {
 };
 
 export const updateEvent = (id, updatedData) => {
-  console.log("updating an event");
   return eventsRef.doc(id).update({
     ...updatedData,
     startDate: dateToTimestamp(updatedData.startDate),
@@ -86,7 +84,6 @@ export const updateEvent = (id, updatedData) => {
 };
 
 export const deleteEvent = (id) => {
-  console.log("deleting an event");
   return eventsRef.doc(id).delete();
 };
 
