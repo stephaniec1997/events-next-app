@@ -3,6 +3,7 @@ import * as admin from "firebase-admin";
 
 if (!admin.apps.length) {
   admin.initializeApp({
+    // TODO: get these in public next env variables :)
     credential: admin.credential.cert({
       projectId: process.env.PROJECT_ID,
       clientEmail: process.env.CLIENT_EMAIL,
@@ -44,7 +45,25 @@ var eventsRef = db.collection("events");
 
 // main functions
 export const getEvents = async () => {
-  const snapshot = await eventsRef.get();
+  const snapshot = await eventsRef
+    .where("startDate", ">=", new Date())
+    .orderBy("startDate")
+    .get();
+  let events = [];
+
+  snapshot.forEach((doc) => {
+    const serializedData = serializeData(doc);
+    events.push(serializedData);
+  });
+
+  return { events };
+};
+
+export const getPastEvents = async () => {
+  const snapshot = await eventsRef
+    .where("startDate", "<=", new Date())
+    .orderBy("startDate", "desc")
+    .get();
   let events = [];
 
   snapshot.forEach((doc) => {
