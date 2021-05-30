@@ -12,7 +12,7 @@ const ErrorSnackbar = ({ error, setOpen }) =>{
       <Snackbar
         severity="error"
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-        open={error}
+        open={!!error}
         onClose={handleClose}
         autoHideDuration={6000}
       >

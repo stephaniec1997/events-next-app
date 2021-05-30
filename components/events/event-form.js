@@ -52,7 +52,7 @@ const EventForm = ({ event }) => {
       .then((response) => {
         if (response.error) {
           setError(response.error);
-          setDisableSubmit(false);
+          setDisableSubmit(false); // FIXME: not updating
         } else {
           setSuccessMessage(response.message);
           setTimeout(() => {
