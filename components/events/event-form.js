@@ -38,35 +38,29 @@ const EventForm = ({ event }) => {
       return setError(formErrors);
     }
 
+    let action = () => {};
+
     if (eid) {
-      updateEvent(eid, newEventData)
-        .then(res => res.json())
-        .then((response) => {
-          if (response.error) {
-            setError(response.error);
-            setDisableSubmit(false);
-          } else {
-            setSuccessMessage(response.message);
-            setTimeout(() => {
-              router.replace("/admin");
-            }, 500);
-          }
-        });
+      action = (data) => {
+        return updateEvent(eid, data);
+      };
     } else {
-      addEvent(newEventData)
-        .then(res => res.json())
-        .then((response) => {
-          if (response.error) {
-            setError(response.error);
-            setDisableSubmit(false);
-          } else {
-            setSuccessMessage(response.message);
-            setTimeout(() => {
-              router.replace("/admin");
-            }, 500);
-          }
-        });
+      action = addEvent;
     }
+
+    action(newEventData)
+      .then(res => res.json())
+      .then((response) => {
+        if (response.error) {
+          setError(response.error);
+          setDisableSubmit(false);
+        } else {
+          setSuccessMessage(response.message);
+          setTimeout(() => {
+            router.replace("/admin");
+          }, 500);
+        }
+      });
   };
 
   return (

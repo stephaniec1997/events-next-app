@@ -38,13 +38,14 @@ const Admin = ({ events, message, err }) => {
   const [error, setError] = useState(null);
   const [successMessage, setSuccessMessage] = useState(null);
 
-  const removeAdmin = (data) => {
+  const handleSubmit = (data, action) => {
     setError(null);
     const formErrors = validateForm(data);
     if (formErrors) {
       return setError(formErrors);
     }
-    removeAdminByEmail(data.email)
+
+    action(data.email)
       .then(res => res.json())
       .then((response) => {
         if (response.error) {
@@ -58,24 +59,12 @@ const Admin = ({ events, message, err }) => {
       });
   };
 
+  const removeAdmin = (data) => {
+    handleSubmit(data, removeAdminByEmail);
+  };
+
   const addAdmin = (data) => {
-    setError(null);
-    const formErrors = validateForm(data);
-    if (formErrors) {
-      return setError(formErrors);
-    }
-    addAdminByEmail(data.email)
-      .then(res => res.json())
-      .then((response) => {
-        if (response.error) {
-          setError(response.error);
-        } else {
-          setSuccessMessage(response.message);
-        }
-      })
-      .finally(() => {
-        // TODO: clear field
-      });
+    handleSubmit(data, addAdminByEmail);
   };
 
   if (err) return <Typography variant="h4">{err}</Typography>; // TODO: handle this with next error page cmpnt
