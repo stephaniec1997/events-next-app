@@ -7,6 +7,8 @@ import Divider from "@material-ui/core/Divider";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
 import AddIcon from "@material-ui/icons/Add";
+import RestoreIcon from "@material-ui/icons/Restore";
+import UpdateIcon from "@material-ui/icons/Update";
 
 import Events from "components/events";
 import Form from "components/form";
@@ -14,7 +16,7 @@ import FormError from "components/form/error";
 import FormSuccess from "components/form/success";
 
 import { validateForm } from "utils";
-import { verifyAdmin, getEvents } from "utils/firebase/admin";
+import { verifyAdmin, getEvents, getPastEvents } from "utils/firebase/admin";
 import { addAdminByEmail, removeAdminByEmail } from "utils/api";
 
 const useStyles = makeStyles(theme => ({
@@ -26,6 +28,10 @@ const useStyles = makeStyles(theme => ({
   button: {
     marginTop: theme.spacing(2),
   },
+  eventsToggle: {
+    marginTop: theme.spacing(2),
+    marginLeft: "80%",
+  },
   adminChanges: {
     display: "flex",
     flexDirection: "row",
@@ -33,9 +39,10 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const Admin = ({ events, errorCode }) => {
+const Admin = ({ events, pastEvents, errorCode }) => {
   const classes = useStyles();
   const [error, setError] = useState(null);
+  const [isPastEvents, setIsPastEvents] = useState(false);
   const [successMessage, setSuccessMessage] = useState(null);
   const [disableSubmit, setDisableSubmit] = useState(false);
 
@@ -92,7 +99,6 @@ const Admin = ({ events, errorCode }) => {
           clearOnSubmit
           onSubmit={removeAdmin}
           disableSubmit={disableSubmit}
-
         />
       </Container>
       <Divider variant="fullWidth" light />
@@ -101,7 +107,25 @@ const Admin = ({ events, errorCode }) => {
           <AddIcon /> New Event
         </Button>
       </Link>
-      <Events data={events} edit />
+      <Button
+        color="primary"
+        className={classes.eventsToggle}
+        size="small"
+        onClick={() => {
+          setIsPastEvents(!isPastEvents);
+        }}
+      >
+        {isPastEvents ? (
+          <>
+            Upcoming Events <UpdateIcon />
+          </>
+        ) : (
+          <>
+            Past Events <RestoreIcon />
+          </>
+        )}
+      </Button>
+      <Events data={isPastEvents ? pastEvents : events} edit />
     </Container>
   );
 };
@@ -114,9 +138,11 @@ export const getServerSideProps = async (ctx) => {
 
     if (isUserAdmin) {
       const data = await getEvents();
+      const pastEvents = await getPastEvents();
       return {
         props: {
           events: data,
+          pastEvents,
         },
       };
     }
