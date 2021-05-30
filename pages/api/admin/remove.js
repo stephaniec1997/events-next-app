@@ -1,3 +1,4 @@
+import { parseCookies } from "nookies";
 import { verifyAdmin, getUserByEmail, removeAdmin } from "utils/firebase/admin";
 
 export default async function userHandler(req, res) {
@@ -7,7 +8,8 @@ export default async function userHandler(req, res) {
   } = req;
 
   try {
-    const isAdmin = await verifyAdmin(req.headers.cookie.replace("token=", ""));
+    const parsedCookies = parseCookies({ req });
+    const isAdmin = await verifyAdmin(parsedCookies.token);
     if (!isAdmin) {
       return res.status(403).json({ error: "Unauthorized" });
     }

@@ -37,11 +37,14 @@ const Admin = ({ events, errorCode }) => {
   const classes = useStyles();
   const [error, setError] = useState(null);
   const [successMessage, setSuccessMessage] = useState(null);
+  const [disableSubmit, setDisableSubmit] = useState(false);
 
   const handleSubmit = (data, action) => {
+    setDisableSubmit(true);
     setError(null);
     const formErrors = validateForm(data);
     if (formErrors) {
+      setDisableSubmit(false);
       return setError(formErrors);
     }
 
@@ -55,7 +58,7 @@ const Admin = ({ events, errorCode }) => {
         }
       })
       .finally(() => {
-        // TODO: clear field
+        setDisableSubmit(false);
       });
   };
 
@@ -78,13 +81,18 @@ const Admin = ({ events, errorCode }) => {
           title="New Admin"
           fields={[{ label: "email", type: "text" }]}
           buttonTitle="Add New Admin"
+          clearOnSubmit
           onSubmit={addAdmin}
+          disableSubmit={disableSubmit}
         />
         <Form
           title="Remove Admin"
           fields={[{ label: "email", type: "text" }]}
           buttonTitle="Remove Admin"
+          clearOnSubmit
           onSubmit={removeAdmin}
+          disableSubmit={disableSubmit}
+
         />
       </Container>
       <Divider variant="fullWidth" light />

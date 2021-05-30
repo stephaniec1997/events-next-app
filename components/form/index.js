@@ -42,7 +42,14 @@ const initialState = (fields) => {
   return state;
 };
 
-const Form = ({ title, fields, buttonTitle, onSubmit, disableSubmit }) => {
+const Form = ({
+  title,
+  fields,
+  buttonTitle,
+  onSubmit,
+  disableSubmit,
+  clearOnSubmit,
+}) => {
   const classes = useStyles();
   const [values, setValues] = useState(initialState(fields));
 
@@ -51,6 +58,7 @@ const Form = ({ title, fields, buttonTitle, onSubmit, disableSubmit }) => {
   };
 
   const handleSubmit = () => {
+    if (clearOnSubmit) setValues(initialState(fields));
     onSubmit(values);
   };
 
