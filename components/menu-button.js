@@ -53,6 +53,14 @@ const MenuButton = () => {
     }
   }
 
+  const renderMenuItemLink = (href, label) => {
+    return (
+      <Link href={href}>
+        <MenuItem onClick={handleClose}>{label}</MenuItem>
+      </Link>
+    );
+  };
+
   // return focus to the button when we transitioned from !open -> open
   const prevOpen = useRef(open);
 
@@ -93,14 +101,14 @@ const MenuButton = () => {
                     id="menu-list-grow"
                     onKeyDown={handleListKeyDown}
                   >
+                    {renderMenuItemLink("/", "Upcoming Events")}
+                    {renderMenuItemLink("/past", "Past Events")}
                     {auth.user ? (
                       <MenuItem onClick={() => auth.signout()}>
                         Sign Out
                       </MenuItem>
                     ) : (
-                      <Link href="/signin">
-                        <MenuItem onClick={handleClose}>Sign In</MenuItem>
-                      </Link>
+                      renderMenuItemLink("/signin", "Sign In")
                     )}
 
                     {/*<MenuItem onClick={handleClose}>My account</MenuItem>
