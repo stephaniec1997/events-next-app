@@ -1,4 +1,3 @@
-import moment from "moment";
 import { useState } from "react";
 import { useRouter } from "next/router";
 
@@ -22,8 +21,8 @@ const EventForm = ({ event }) => {
     const eid = event.id;
     const newEventData = {
       name: newEvent.name,
-      startDate: newEvent.date.start.toDate(),
-      endDate: newEvent.date.end.toDate(),
+      startDate: newEvent.date.start,
+      endDate: newEvent.date.end,
       allDay: newEvent.date.allDay,
       place:
         typeof newEvent.place === "string"
@@ -75,8 +74,8 @@ const EventForm = ({ event }) => {
             label: "date",
             type: "date",
             value: {
-              start: moment(event.startDate) || moment(),
-              end: moment(event.endDate) || moment(),
+              start: event.startDate || new Date(),
+              end: event.endDate || new Date(),
               allDay: event.allDay || false,
             },
           },

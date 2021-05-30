@@ -1,18 +1,18 @@
-import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Switch from '@material-ui/core/Switch';
-import MomentUtils from '@date-io/moment';
+import { makeStyles } from "@material-ui/core/styles";
+import Container from "@material-ui/core/Container";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Switch from "@material-ui/core/Switch";
+import DateFnsUtils from "@date-io/date-fns";
 import {
   MuiPickersUtilsProvider,
   DatePicker,
   DateTimePicker,
-} from '@material-ui/pickers';
+} from "@material-ui/pickers";
 
 const useStyles = makeStyles(theme => ({
   dates: {
-    display: 'flex',
-    flexDirection: 'row',
+    display: "flex",
+    flexDirection: "row",
     marginTop: theme.spacing(1),
     marginLeft: 0,
     paddingLeft: 0,
@@ -36,14 +36,14 @@ const EventForm = ({ values, setValues, className }) => {
   return (
     <>
       <Container className={classes.dates}>
-        <MuiPickersUtilsProvider utils={MomentUtils} >
+        <MuiPickersUtilsProvider utils={DateFnsUtils}>
           <>
             {values.allDay && (
               <DatePicker
                 value={values.start}
                 disablePast
                 inputVariant="outlined"
-                onChange={handleDateChange('start')}
+                onChange={handleDateChange("start")}
                 label="Start Date"
                 showTodayButton
               />
@@ -53,7 +53,7 @@ const EventForm = ({ values, setValues, className }) => {
                 value={values.start}
                 disablePast
                 inputVariant="outlined"
-                onChange={handleDateChange('start')}
+                onChange={handleDateChange("start")}
                 label="Start Date"
                 showTodayButton
               />
@@ -61,12 +61,11 @@ const EventForm = ({ values, setValues, className }) => {
             {values.allDay || (
               <DateTimePicker
                 value={values.end}
-                disablePast
                 minDate={values.start}
                 strictCompareDates
-                minDateMessage='Date and time should be after start date'
+                minDateMessage="Date and time should be after start date"
                 inputVariant="outlined"
-                onChange={handleDateChange('end')}
+                onChange={handleDateChange("end")}
                 label="End Date"
                 showTodayButton
                 className={classes.endDate}
@@ -80,7 +79,7 @@ const EventForm = ({ values, setValues, className }) => {
           <Switch
             checked={values.allDay}
             className={className}
-            onChange={handleSwitchChange('allDay')}
+            onChange={handleSwitchChange("allDay")}
             name="allDay"
             color="primary"
           />

@@ -1,3 +1,4 @@
+import { parseCookies } from "nookies";
 import {
   verifyAdmin,
   addEvent,
@@ -15,7 +16,8 @@ export default async function userHandler(req, res) {
 
   // VERIFY USER IS ADMIN
   try {
-    const isAdmin = await verifyAdmin(req.headers.cookie.replace("token=", ""));
+    const parsedCookies = parseCookies({ req });
+    const isAdmin = await verifyAdmin(parsedCookies.token);
     if (!isAdmin) {
       return res.status(403).json({ error: "Unauthorized" });
     }
@@ -27,12 +29,9 @@ export default async function userHandler(req, res) {
   if (id) {
     const eventDoc = await getEvent(id);
     if (!eventDoc) {
-      return res
-        .status(500)
-        .json({
-          error:
-            "You can't perform an action on an that event no longer exists",
-        });
+      return res.status(500).json({
+        error: "You can't perform an action on an that event no longer exists",
+      });
     }
   }
 

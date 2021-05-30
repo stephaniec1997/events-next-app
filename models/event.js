@@ -1,4 +1,4 @@
-import moment from "moment";
+import { format } from "date-fns";
 import { isArray } from "lodash";
 
 export default class Event {
@@ -9,9 +9,9 @@ export default class Event {
     this._id = this._options.id || null;
     this._name = this._options.name || "New Event";
     this._start_date =
-      this._options.startDate && moment(this._options.startDate * 1000);
+      this._options.startDate && new Date(this._options.startDate * 1000);
     this._end_date =
-      (!this._options.allDay && moment(this._options.endDate * 1000)) || null;
+      (!this._options.allDay && new Date(this._options.endDate * 1000)) || null;
     this._allDay = this._options.allDay || null;
     this._place = this._options.place || null;
     this._description = this._options.description || null;
@@ -47,8 +47,8 @@ export default class Event {
 
   formatDate(date) {
     if (this.allDay) {
-      return date && date.format("dddd LL");
+      return date && format(date, "EEEE MMMM d, yyyy");
     }
-    return date && date.format("LLL");
+    return date && format(date, "MMMM d, yyyy h:mm aaaaa'm'");
   }
 }
