@@ -16,10 +16,7 @@ describe("Theme Switch Component", () => {
     let isDark = true;
     const theme = {
       isDarkMode: isDark,
-      setDarkMode: jest.fn().mockImplementation((fn) => {
-        isDark = fn(isDark);
-        return isDark;
-      }),
+      toggleTheme: jest.fn(),
     };
 
     beforeAll(() => {
@@ -34,11 +31,11 @@ describe("Theme Switch Component", () => {
       beforeAll(() => userEvent.click(screen.getByRole("checkbox")));
 
       it("theme callback is ran", () => {
-        expect(theme.setDarkMode).toHaveBeenCalled();
+        expect(theme.toggleTheme).toHaveBeenCalled();
       });
 
-      it("theme callback returns opposit of given theme", () => {
-        expect(theme.setDarkMode).toHaveReturnedWith(false);
+      it("theme callback returns opposite of given theme", () => {
+        expect(theme.toggleTheme).toHaveBeenCalledWith(false);
       });
     });
   });

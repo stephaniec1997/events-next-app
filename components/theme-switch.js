@@ -5,14 +5,14 @@ import Switch from "@material-ui/core/Switch";
 import DarkModeContext from "contexts/dark-mode";
 
 const ThemeSwitch = () => {
-  const { isDarkMode, setDarkMode } = useContext(DarkModeContext);
+  const { isDarkMode, toggleTheme } = useContext(DarkModeContext);
 
   return (
     <FormControlLabel
       control={
         <Switch
           checked={isDarkMode}
-          onChange={() => setDarkMode(prevIsDarkMode => !prevIsDarkMode)}
+          onChange={() => toggleTheme(!isDarkMode)}
           name="isDarkMode"
           color="secondary"
         />

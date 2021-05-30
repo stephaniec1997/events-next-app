@@ -1,4 +1,5 @@
 import { useState } from "react";
+import nookies from "nookies";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { ThemeProvider } from "@material-ui/core/styles";
 
@@ -9,14 +10,20 @@ import { AuthenticationProvider } from "contexts/authentication";
 
 import { darkTheme, lightTheme } from "styles/theme";
 
-function MyApp({ Component, pageProps }) {
-  const [isDarkMode, setDarkMode] = useState(true);
+function App({ Component, pageProps, previousTheme }) {
+  const [isDarkMode, setDarkMode] = useState(previousTheme === "dark");
 
   const theme = isDarkMode ? darkTheme : lightTheme;
 
+  const toggleTheme = (theme) => {
+    const themeText = theme ? "dark" : "light";
+    nookies.set(undefined, "theme", themeText, { path: "/" });
+    setDarkMode(theme);
+  };
+
   return (
     <AuthenticationProvider>
-      <DarkModeContext.Provider value={{ isDarkMode, setDarkMode }}>
+      <DarkModeContext.Provider value={{ isDarkMode, toggleTheme }}>
         <ThemeProvider theme={theme}>
           <CssBaseline />
           <Navbar />
@@ -27,4 +34,20 @@ function MyApp({ Component, pageProps }) {
   );
 }
 
-export default MyApp;
+App.getInitialProps = async ({ Component, ctx }) => {
+  let pageProps = {};
+  let previousTheme = "light";
+  if (Component.getInitialProps) {
+    pageProps = await Component.getInitialProps(ctx);
+  }
+
+  const cookies = await nookies.get(ctx);
+  previousTheme = cookies.theme || previousTheme;
+
+  return {
+    pageProps,
+    previousTheme,
+  };
+};
+
+export default App;
