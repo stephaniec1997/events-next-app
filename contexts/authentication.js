@@ -61,8 +61,7 @@ function useProvideAuth() {
         nookies.set(undefined, "token", "", { path: "/" });
       }
     });
-
-    return () => unsubscribe();
+    if (unsubscribe) return () => unsubscribe();
   }, []);
 
   // force refresh the token every 10 minutes
