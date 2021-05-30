@@ -1,12 +1,12 @@
 import { useState } from "react";
 import Link from "next/link";
+import Error from "next/error";
 import nookies from "nookies";
 import Container from "@material-ui/core/Container";
 import Divider from "@material-ui/core/Divider";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
 import AddIcon from "@material-ui/icons/Add";
-import Typography from "@material-ui/core/Typography";
 
 import Events from "components/events";
 import Form from "components/form";
@@ -33,7 +33,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const Admin = ({ events, message, err }) => {
+const Admin = ({ events, errorCode }) => {
   const classes = useStyles();
   const [error, setError] = useState(null);
   const [successMessage, setSuccessMessage] = useState(null);
@@ -67,11 +67,10 @@ const Admin = ({ events, message, err }) => {
     handleSubmit(data, addAdminByEmail);
   };
 
-  if (err) return <Typography variant="h4">{err}</Typography>; // TODO: handle this with next error page cmpnt
+  if (errorCode) return <Error statusCode={errorCode} />;
 
   return (
     <Container className={classes.root}>
-      <Typography>{message}</Typography>
       <FormSuccess message={successMessage} setOpen={setSuccessMessage} />
       <FormError error={error} setOpen={setError} />
       <Container className={classes.adminChanges}>
@@ -110,13 +109,12 @@ export const getServerSideProps = async (ctx) => {
       return {
         props: {
           events: data,
-          message: `FINALLYYYYYYYYY.`,
         },
       };
     }
 
     return {
-      props: { err: "Error 403: Unauthorized" },
+      props: { errorCode: 403 },
     };
   } catch (err) {
     ctx.res.writeHead(302, { Location: "/signin" });
