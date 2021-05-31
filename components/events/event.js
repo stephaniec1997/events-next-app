@@ -17,12 +17,7 @@ const Event = ({ event, edit, ...props }) => {
       </ListItemAvatar>
       <ListItemText
         disableTypography
-        primary={
-          <EventTitle
-            title={event.name}
-            date={`${event.startDate}${event.endDate && ` - ${event.endDate}`}`}
-          />
-        }
+        primary={<EventTitle title={event.name} date={event.date} />}
         secondary={
           <>
             <Typography variant="body2">{event.place}</Typography>

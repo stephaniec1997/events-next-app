@@ -25,6 +25,11 @@ export default class Event {
     return this._name;
   }
 
+  get date() {
+    const endDate = this.endDate ? ` - ${this.endDate}` : "";
+    return this.startDate + endDate;
+  }
+
   get startDate() {
     return this.formatDate(this._start_date);
   }
