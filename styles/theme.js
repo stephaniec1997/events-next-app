@@ -1,14 +1,15 @@
-import { createMuiTheme } from '@material-ui/core/styles';
+import { createMuiTheme } from "@material-ui/core/styles";
 
 const palette = {
-  background:{
-    default: '#ffffff',
+  background: {
+    default: "#ffffff",
   },
   primary: {
-    main: '#5c52ab',
+    main: "#FF521B",
+    contrastText: "#1f1d1a ",
   },
   secondary: {
-    main: '#22186e',
+    main: "#FC9E4F",
   },
 };
 
@@ -18,25 +19,28 @@ export const coreTheme = createMuiTheme({
 
 export const lightTheme = createMuiTheme({
   ...coreTheme,
-  palette:{
+  palette: {
     ...coreTheme.palette,
-    background:{
-      default: '#ffffff',
+    background: {
+      default: "#ffffff",
     },
-    type: 'light',
+    text: {
+      primary: "#1f1d1a",
+    },
+    type: "light",
   },
 });
 
 export const darkTheme = createMuiTheme({
   ...coreTheme,
-  palette:{
+  palette: {
     ...coreTheme.palette,
-    background:{
-      default: '#1f1d1a',
+    background: {
+      default: "#1f1d1a",
     },
     text: {
-      primary: '#5c52ab',
+      primary: "#FF521B",
     },
-    type: 'dark',
+    type: "dark",
   },
 });
