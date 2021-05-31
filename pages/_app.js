@@ -51,3 +51,5 @@ App.getInitialProps = async ({ Component, ctx }) => {
 };
 
 export default App;
+
+// TODO: see how you can minimize initial load js
