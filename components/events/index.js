@@ -19,7 +19,7 @@ const Events = ({ data, edit }) => {
           <Event
             key={`event-${event.id}`}
             button
-            component="a"
+            component="li"
             event={event}
             edit={edit}
             onClick={() => {
