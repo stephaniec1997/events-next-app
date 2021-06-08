@@ -25,13 +25,18 @@ const initialState = (fields) => {
   fields.map(({ label, type, value }) => {
     switch (type) {
       case "date":
-        state[label] = value || {
-          start: new Date(),
-          end: new Date(),
-          allDay: false,
+        state[label] = {
+          start: value.start || new Date(),
+          end: value.end || new Date(),
+          allDay: value.allDay || false,
         };
         break;
       case "location":
+        state[label] = {
+          place: value.place || "",
+          virtual: value.virtual || false,
+        };
+        break;
       case "password":
       case "text":
       default:

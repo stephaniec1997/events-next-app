@@ -37,7 +37,7 @@ export default class StructuredData {
       (!this._options.allDay && new Date(this._options.endDate * 1000)) || null;
     this._place = this._options.place || null;
     this._description = this._options.description || null;
-    this._virtual_location = this._options.virtualLocation || null;
+    this._virtual = this._options.virtual || null;
     this._type = type;
   }
 
@@ -57,8 +57,8 @@ export default class StructuredData {
     return this._end_date;
   }
 
-  get virtualLocation() {
-    return this._virtual_location;
+  get virtual() {
+    return this._virtual;
   }
 
   get place() {
@@ -66,11 +66,13 @@ export default class StructuredData {
   }
 
   get location() {
-    if (this.virtualLocation) {
-      return {
-        "@type": "VirtualLocation",
-        url: this.virtualLocation,
-      };
+    if (this.virtual) {
+      return (
+        this.place && {
+          "@type": "VirtualLocation",
+          url: this.place,
+        }
+      );
     }
     return (
       this.place && {

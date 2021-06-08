@@ -1,9 +1,9 @@
-import LocationOnIcon from '@material-ui/icons/LocationOn';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
+import LocationOnIcon from "@material-ui/icons/LocationOn";
+import Grid from "@material-ui/core/Grid";
+import Typography from "@material-ui/core/Typography";
+import { makeStyles } from "@material-ui/core/styles";
 
-import LocationOptionModel from 'models/location-option';
+import LocationOptionModel from "models/location-option";
 
 const useStyles = makeStyles(theme => ({
   icon: {
@@ -23,13 +23,16 @@ const LocationOption = ({ option }) => {
         <LocationOnIcon className={classes.icon} />
       </Grid>
       <Grid item xs>
-        {location.mainText ? location.mainTextParts.map((part, index) => (
-          <span key={index} style={{ fontWeight: part.highlight ? 700 : 400 }}>
-            {part.text}
-          </span>
-        )):
-        location.description
-        }
+        {location.mainText
+          ? location.mainTextParts.map((part, index) => (
+              <span
+                key={index}
+                style={{ fontWeight: part.highlight ? 700 : 400 }}
+              >
+                {part.text}
+              </span>
+            ))
+          : location.description}
         <Typography variant="body2" color="textSecondary">
           {location.secondaryText}
         </Typography>

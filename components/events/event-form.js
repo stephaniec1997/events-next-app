@@ -25,9 +25,10 @@ const EventForm = ({ event }) => {
       endDate: newEvent.date.end,
       allDay: newEvent.date.allDay,
       place:
-        typeof newEvent.place === "string"
-          ? newEvent.place
-          : newEvent.place.description,
+        typeof newEvent.location.place === "string"
+          ? newEvent.location.place
+          : newEvent.location.place.description,
+      virtual: newEvent.location.virtual,
       description: newEvent.description,
     };
 
@@ -76,12 +77,19 @@ const EventForm = ({ event }) => {
             label: "date",
             type: "date",
             value: {
-              start: event.startDate || new Date(),
-              end: event.endDate || new Date(),
-              allDay: event.allDay || false,
+              start: event.startDate,
+              end: event.endDate,
+              allDay: event.allDay,
             },
           },
-          { label: "place", type: "location", value: event.place },
+          {
+            label: "location",
+            type: "location",
+            value: {
+              place: event.place,
+              virtual: event.virtual,
+            },
+          },
           { label: "description", type: "long", value: event.description },
         ]}
         buttonTitle={event.id ? "Save Edits" : "Create Event"}
