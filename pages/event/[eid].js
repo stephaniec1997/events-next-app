@@ -1,5 +1,6 @@
 import List from "@material-ui/core/List";
 
+import StructuredData from "components/structured-data";
 import Event from "components/events/event";
 
 import EventModel from "models/event";
@@ -10,9 +11,12 @@ const EventPage = ({ event }) => {
   const eventData = new EventModel(event);
 
   return (
-    <List>
-      <Event event={eventData} />
-    </List>
+    <>
+      <StructuredData data={event} />
+      <List>
+        <Event event={eventData} />
+      </List>
+    </>
   );
 };
 
