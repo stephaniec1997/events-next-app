@@ -8,20 +8,20 @@ export const ITEM_LIST_DATA_TYPE = "ItemList";
 export const STRUCTURED_DATA_TYPES = [EVENT_DATA_TYPE, ITEM_LIST_DATA_TYPE];
 
 export const EVENT_REQUIRED_PROPERTIES = [
-  { property: "location", data: "place" },
-  { property: "startDate", data: "startDate" },
-  { property: "name", data: "name" },
+  { property: "location" },
+  { property: "startDate" },
+  { property: "name" },
 ];
 
 export const EVENT_OPTIONAL_PROPERTIES = [
-  { property: "description", data: "description" },
-  { property: "offers", data: null },
-  { property: "eventStatus", data: null },
-  { property: "endDate", data: "endDate" },
-  { property: "eventAttendanceMode", data: null },
-  { property: "image", data: null },
-  { property: "performer", data: null },
-  { property: "organizer", data: null },
+  { property: "description" },
+  { property: "offers" },
+  { property: "eventStatus" },
+  { property: "endDate" },
+  { property: "eventAttendanceMode" },
+  { property: "image" },
+  { property: "performer" },
+  { property: "organizer" },
 ];
 
 export default class StructuredData {
