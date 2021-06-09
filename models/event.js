@@ -27,7 +27,19 @@ export default class Event {
   }
 
   get date() {
-    const endDate = this.endDate ? ` - ${this.endDate}` : "";
+    let endDate = "";
+
+    if (this.endDate) {
+      // if start and end date same just display end time
+      if (
+        format(this._start_date, "MMMM d, yyyy") ===
+        format(this._end_date, "MMMM d, yyyy")
+      ) {
+        endDate = ` - ${format(this._end_date, "h:mm aaaaa'm'")}`;
+      } else {
+        endDate = ` - ${this.endDate}`;
+      }
+    }
     return this.startDate + endDate;
   }
 
