@@ -3,13 +3,12 @@ import * as admin from "firebase-admin";
 
 if (!admin.apps.length) {
   admin.initializeApp({
-    // TODO: get these in public next env variables :)
     credential: admin.credential.cert({
       projectId: process.env.PROJECT_ID,
       clientEmail: process.env.CLIENT_EMAIL,
       privateKey: process.env.PRIVATE_KEY.replace(/\\n/g, "\n"),
     }),
-    databaseURL: "https://events-next-app-default-rtdb.firebaseio.com/",
+    databaseURL: process.env.NEXT_PUBLIC_FIREBASE_DATABASE_URL,
   });
 }
 
@@ -44,6 +43,10 @@ var db = admin.firestore();
 var eventsRef = db.collection("events");
 
 // main functions
+// TODO: improve getEvents and getPastEvents query to filter by end date instead
+//       for events spanning several days/weeks (note: allDay events don't have
+//       endDate and no || queries available for firebase yet -- view
+//       https://issuetracker.google.com/issues/129070817#comment42)
 export const getEvents = async () => {
   const snapshot = await eventsRef
     .where("startDate", ">=", new Date())
