@@ -21,7 +21,7 @@ function loadScript(src, position, id) {
 
 const autocompleteService = { current: null };
 
-const GoogleMapsLocation = ({ value, setValue }) => {
+const GoogleAutocomplete = ({ value, setValue }) => {
   const [inputValue, setInputValue] = useState("");
   const [options, setOptions] = useState([]);
   const loaded = useRef(false);
@@ -108,4 +108,4 @@ const GoogleMapsLocation = ({ value, setValue }) => {
   );
 };
 
-export default GoogleMapsLocation;
+export default GoogleAutocomplete;

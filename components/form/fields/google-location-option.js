@@ -12,7 +12,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const LocationOption = ({ option }) => {
+const GoogleLocationOption = ({ option }) => {
   const classes = useStyles();
 
   const location = new LocationOptionModel(option);
@@ -41,4 +41,4 @@ const LocationOption = ({ option }) => {
   );
 };
 
-export default LocationOption;
+export default GoogleLocationOption;

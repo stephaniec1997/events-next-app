@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Typography from "@material-ui/core/Typography";
 
-const Event = ({ location, virtual, disableLocation }) => {
+const EventLocation = ({ location, virtual, disableLocation }) => {
   return (
     <>
       {(!virtual || disableLocation) && (
@@ -18,4 +18,4 @@ const Event = ({ location, virtual, disableLocation }) => {
   );
 };
 
-export default Event;
+export default EventLocation;

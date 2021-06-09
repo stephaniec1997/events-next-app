@@ -17,7 +17,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const Event = ({ title, date }) => {
+const EventTitle = ({ title, date }) => {
   const classes = useStyles();
 
   return (
@@ -37,4 +37,4 @@ const Event = ({ title, date }) => {
   );
 };
 
-export default Event;
+export default EventTitle;

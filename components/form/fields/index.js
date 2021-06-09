@@ -13,7 +13,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const Field = ({ title, label, type, value, onChange }) => {
+const Fields = ({ title, label, type, value, onChange }) => {
   const classes = useStyles();
 
   const handleChange = (e) => {
@@ -67,4 +67,4 @@ const Field = ({ title, label, type, value, onChange }) => {
   }
 };
 
-export default Field;
+export default Fields;

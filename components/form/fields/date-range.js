@@ -22,7 +22,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const EventForm = ({ values, setValues, className }) => {
+const DateRange = ({ values, setValues, className }) => {
   const classes = useStyles();
 
   const handleSwitchChange = prop => (event) => {
@@ -90,4 +90,4 @@ const EventForm = ({ values, setValues, className }) => {
   );
 };
 
-export default EventForm;
+export default DateRange;
