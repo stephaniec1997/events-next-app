@@ -1,5 +1,5 @@
 import { isArray } from "lodash";
-import { SITE_NAME, SITE_URL, SITE_LOGO_URL } from "constants";
+import { SITE_NAME, SITE_URL } from "constants";
 
 export const SCHEMA_CONTEXT = "https://schema.org";
 
@@ -107,10 +107,6 @@ export default class StructuredData {
       "@type": "Organization",
       name: SITE_NAME,
       url: SITE_URL,
-      logo: {
-        "@type": "ImageObject",
-        url: SITE_LOGO_URL,
-      },
     };
   }
 
