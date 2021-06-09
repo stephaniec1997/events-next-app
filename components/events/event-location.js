@@ -9,7 +9,7 @@ const EventLocation = ({ location, virtual, disableLocation }) => {
       )}
       {virtual && !disableLocation && (
         <Link href={location} passHref>
-          <Typography component="a" variant="body2">
+          <Typography component="a" variant="body2" color="textPrimary">
             {location}
           </Typography>
         </Link>
