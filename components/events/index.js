@@ -22,6 +22,7 @@ const Events = ({ data, edit }) => {
             component="li"
             event={event}
             edit={edit}
+            disableLocation
             onClick={() => {
               router.push(`/event/${event.id}`);
             }}
