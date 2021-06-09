@@ -29,6 +29,7 @@ export default class StructuredData {
     this._options =
       data && typeof data === "object" && !isArray(data) ? data : {};
 
+    this._type = type;
     this._id = this._options.id || null;
     this._name = this._options.name || "New Event";
     this._start_date =
@@ -38,7 +39,6 @@ export default class StructuredData {
     this._place = this._options.place || null;
     this._description = this._options.description || null;
     this._virtual = this._options.virtual || null;
-    this._type = type;
   }
 
   get id() {
@@ -88,6 +88,12 @@ export default class StructuredData {
         // },
       }
     );
+  }
+
+  get eventAttendanceMode() {
+    return this.virtual
+      ? "https://schema.org/OnlineEventAttendanceMode"
+      : "https://schema.org/OfflineEventAttendanceMode";
   }
 
   get description() {
