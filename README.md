@@ -53,7 +53,7 @@ I've used the firebase console for all the setup.
   - If you haven't already go to Project Settings - General and add a new web app. Once it's been setup, your config variables will be displayed under that web app.
 5. Get Admin SDK private variables for project.
   - Under Project Settings - Service Accounts generate a private key for admin sdk, download file to store and use variables within file for the private env variables.
-6. If taking to production, you'll also need to setup some database security rules which you can find [here](https://firebase.google.com/docs/auth/admin/custom-claims).
+6. If taking to production, you'll also need to setup some database security rules which you can find more info on [here](https://firebase.google.com/docs/auth/admin/custom-claims).
 
 Some Helpful Resources:
 
