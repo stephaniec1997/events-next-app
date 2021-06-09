@@ -32,7 +32,7 @@ const EventForm = ({ event }) => {
       description: newEvent.description,
     };
 
-    const formErrors = validateForm({ ...newEventData, allDay: true });
+    const formErrors = validateForm({ ...newEventData, allDay: true, virtual: true });
 
     if (formErrors) {
       setError(formErrors);
