@@ -13,7 +13,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const Field = ({ title, label, type, value, onChange }) => {
+const Fields = ({ title, label, type, value, onChange }) => {
   const classes = useStyles();
 
   const handleChange = (e) => {
@@ -33,7 +33,7 @@ const Field = ({ title, label, type, value, onChange }) => {
     case "date":
       return <DateRangeField values={value} setValues={handleChange} />;
     case "location":
-      return <LocationField value={value} setValue={handleChange} />;
+      return <LocationField values={value} setValues={handleChange} />;
     case "password":
       return (
         <PasswordField
@@ -67,4 +67,4 @@ const Field = ({ title, label, type, value, onChange }) => {
   }
 };
 
-export default Field;
+export default Fields;

@@ -5,9 +5,10 @@ import Avatar from "@material-ui/core/Avatar";
 import Typography from "@material-ui/core/Typography";
 
 import EventTitle from "components/events/event-title";
+import EventLocation from "components/events/event-location";
 import EditButtons from "components/events/edit-buttons";
 
-const Event = ({ event, edit, ...props }) => {
+const Event = ({ event, edit, disableLocation, ...props }) => {
   const buttonProps = edit ? {} : props;
 
   return (
@@ -20,7 +21,11 @@ const Event = ({ event, edit, ...props }) => {
         primary={<EventTitle title={event.name} date={event.date} />}
         secondary={
           <>
-            <Typography variant="body2">{event.place}</Typography>
+            <EventLocation
+              location={event.place}
+              virtual={event.virtual}
+              disableLocation={disableLocation}
+            />
             <Typography variant="body1">{event.description}</Typography>
           </>
         }

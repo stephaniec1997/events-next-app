@@ -13,6 +13,7 @@ export default class Event {
     this._end_date =
       (!this._options.allDay && new Date(this._options.endDate * 1000)) || null;
     this._allDay = this._options.allDay || null;
+    this._virtual = this._options.virtual || null;
     this._place = this._options.place || null;
     this._description = this._options.description || null;
   }
@@ -40,6 +41,10 @@ export default class Event {
 
   get allDay() {
     return this._allDay;
+  }
+
+  get virtual() {
+    return this._virtual;
   }
 
   get place() {
