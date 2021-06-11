@@ -104,15 +104,15 @@ const MenuButton = () => {
                     {renderMenuItemLink("/", "Upcoming Events")}
                     {renderMenuItemLink("/past", "Past Events")}
                     {auth.user ? (
-                      <MenuItem onClick={() => auth.signout()}>
-                        Sign Out
-                      </MenuItem>
+                      <>
+                        {renderMenuItemLink("/user/profile", "Profile")}
+                        <MenuItem onClick={() => auth.signout()}>
+                          Sign Out
+                        </MenuItem>
+                      </>
                     ) : (
                       renderMenuItemLink("/signin", "Sign In")
                     )}
-
-                    {/*<MenuItem onClick={handleClose}>My account</MenuItem>
-                    <MenuItem onClick={handleClose}>Logout</MenuItem>*/}
                   </MenuList>
                 </ClickAwayListener>
               </Paper>

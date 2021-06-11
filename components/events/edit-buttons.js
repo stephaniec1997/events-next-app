@@ -39,11 +39,16 @@ const EditButtons = ({ id }) => {
       <ErrorMessage error={error} setOpen={setError} />
       <ListItemSecondaryAction>
         <Link href={`/admin/event/${id}`} passHref>
-          <IconButton edge="end" aria-label="delete">
+          <IconButton color="secondary" edge="end" aria-label="edit">
             <EditIcon />
           </IconButton>
         </Link>
-        <IconButton edge="end" aria-label="delete" onClick={onDelete}>
+        <IconButton
+          color="secondary"
+          edge="end"
+          aria-label="delete"
+          onClick={onDelete}
+        >
           <DeleteIcon />
         </IconButton>
       </ListItemSecondaryAction>
