@@ -24,3 +24,8 @@ export const signInUser = (email, password) => {
 export const signOutUser = () => {
   return firebase.auth().signOut();
 };
+
+export const updateUser = (data) => {
+  const user = getCurrentUser();
+  return user.updateProfile(data);
+};

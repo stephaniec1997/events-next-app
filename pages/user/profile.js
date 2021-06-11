@@ -33,7 +33,7 @@ export async function getServerSideProps() {
   // TODO: make these endpoints/functions; actually get the data
   const userData = {
     displayName: null, //"Heyyy",
-    email: "testing@email.lkd",
+    email: "GET ACTUAL DATA!!!",
     photoURL: null,
   };
   const userEvents = await getEvents(); // TODO: get the correct data

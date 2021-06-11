@@ -6,6 +6,7 @@ import FormError from "components/form/error";
 import FormSuccess from "components/form/success";
 
 import { validateForm } from "utils";
+import { updateUser } from "utils/firebase";
 
 const ProfileEdit = ({ displayName, userAvatar }) => {
   // const router = useRouter();
@@ -24,7 +25,17 @@ const ProfileEdit = ({ displayName, userAvatar }) => {
       setDisableNameSubmit(false);
       return;
     }
-    // TODO: actually change data
+
+    updateUser({ displayName: updatedData.name })
+      .then(() => {
+        setDisableNameSubmit(false);
+        // TODO: Make sure to re-ertrieve data OR set displayName
+      })
+      .catch((err) => {
+        console.log("err:", err);
+        setError(err);
+        setDisableNameSubmit(false);
+      });
   };
 
   const updateAvatar = ({ image }) => {
