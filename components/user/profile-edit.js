@@ -1,4 +1,5 @@
 import { useState, useContext } from "react";
+import Compress from "react-image-file-resizer";
 
 import Form from "components/form";
 import FormError from "components/form/error";
@@ -46,12 +47,23 @@ const ProfileEdit = () => {
       });
     }
     if (image.file) {
-      // TODO: compress file since only used for avatar
-      storePhoto(user.id, image.file)
-        .then((url) => {
-          updateUserPhoto(url);
-        })
-        .catch(catchError);
+      // Compressing file before uploading
+      Compress.imageFileResizer(
+        image.file, // file
+        300, // max width
+        300, // max height
+        "JPEG", // compress format
+        70, // quality
+        0, // rotation
+        (uri) => {
+          storePhoto(user.id, uri)
+            .then((url) => {
+              updateUserPhoto(url);
+            })
+            .catch(catchError);
+        }, //  callBack function of the resized new image URI
+        "blob", // output type
+      );
     }
   };
 
