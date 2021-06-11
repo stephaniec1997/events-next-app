@@ -27,7 +27,7 @@ export default function Profile({ user }) {
       <main className={classes.root}>
         <UserProfile />
         <Typography variant="h6">Subscriptions: </Typography>
-        <EventSubcriptions data={user.subscriptions} />
+        <EventSubcriptions />
       </main>
     </UserProfileContext.Provider>
   );

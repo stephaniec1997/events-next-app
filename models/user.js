@@ -1,6 +1,8 @@
 // USED FOR PROFILE PAGE
 import { isArray } from "lodash";
 
+import EventsModel from "models/events";
+
 export default class User {
   constructor(data = {}) {
     this._options =
@@ -10,7 +12,7 @@ export default class User {
     this._email = this._options.email || null;
     this._display_name = this._options.displayName || null;
     this._photo_url = this._options.photoURL || null;
-    this._subscriptions = this._options.subscriptions || [];
+    this._subscriptions = new EventsModel(this._options.subscriptions);
   }
 
   get id() {
