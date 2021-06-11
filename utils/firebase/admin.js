@@ -25,6 +25,22 @@ export const verifyAdmin = (token) => {
     });
 };
 
+// ------------- USER FUNCTIONS  --------------- //
+
+export const getUser = (token) => {
+  return admin
+    .auth()
+    .verifyIdToken(token)
+    .then((claims) => {
+      const uid = claims.user_id;
+      return admin
+        .auth()
+        .getUser(uid)
+        .then((userRecord) => {
+          return userRecord;
+        });
+    });
+};
 
 // ------------- ADMIN FUNCTIONS  --------------- //
 
@@ -35,7 +51,6 @@ export const addAdmin = user =>
 
 export const removeAdmin = user =>
   admin.auth().setCustomUserClaims(user.uid, { admin: false });
-
 
 // ------------- EVENTS FUNCTIONS  --------------- //
 

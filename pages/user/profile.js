@@ -1,10 +1,11 @@
+import nookies from "nookies";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 
 import UserProfile from "components/user/profile";
 import EventSubcriptions from "components/user/subscriptions";
 
-import { getEvents } from "utils/firebase/admin";
+import { getEvents, getUser } from "utils/firebase/admin";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -29,19 +30,20 @@ export default function Profile({ user, userEvents }) {
   );
 }
 
-export async function getServerSideProps() {
-  // TODO: make these endpoints/functions; actually get the data
-  const userData = {
-    displayName: null, //"Heyyy",
-    email: "GET ACTUAL DATA!!!",
-    photoURL: null,
-  };
+export const getServerSideProps = async (ctx) => {
+  const cookies = nookies.get(ctx);
+
+  const userData = await getUser(cookies.token);
   const userEvents = await getEvents(); // TODO: get the correct data
 
   return {
     props: {
-      user: userData,
+      user: {
+        displayName: userData.displayName,
+        email: userData.email,
+        photoURL: userData.photoURL,
+      },
       userEvents: userEvents,
     },
   };
-}
+};
