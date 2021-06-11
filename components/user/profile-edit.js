@@ -7,8 +7,9 @@ import FormSuccess from "components/form/success";
 
 import { validateForm } from "utils";
 import { updateUser } from "utils/firebase";
+import { storePhoto, deletePhoto } from "utils/firebase/image-storage";
 
-const ProfileEdit = ({ displayName, userAvatar }) => {
+const ProfileEdit = ({ displayName, userAvatar, uid }) => {
   // const router = useRouter();
   const [error, setError] = useState(null);
   const [successMessage, setSuccessMessage] = useState(null);
@@ -29,26 +30,43 @@ const ProfileEdit = ({ displayName, userAvatar }) => {
     updateUser({ displayName: updatedData.name })
       .then(() => {
         setDisableNameSubmit(false);
+        setSuccessMessage("Display Name has been Updated!");
         // TODO: Make sure to re-ertrieve data OR set displayName
       })
-      .catch((err) => {
-        console.log("err:", err);
-        setError(err);
-        setDisableNameSubmit(false);
-      });
+      .catch(catchError);
   };
 
   const updateAvatar = ({ image }) => {
     setDisableAvatarSubmit(true);
-
-    if (userAvatar) {
-      // TODO: remove from db
+    if (userAvatar && !image.file) {
+      return deletePhoto(uid).then(() => {
+        updateUserPhoto("");
+      });
     }
     if (image.file) {
-      // TODO: add to db and then user
-    } else {
-      setDisableAvatarSubmit(false);
+      // TODO: compress file since only used for avatar
+      storePhoto(uid, image.file)
+        .then((url) => {
+          updateUserPhoto(url);
+        })
+        .catch(catchError);
     }
+  };
+
+  const updateUserPhoto = (url) => {
+    updateUser({ photoURL: url })
+      .then(() => {
+        setSuccessMessage("Your avatar has been Updated!");
+        setDisableAvatarSubmit(false);
+        // TODO: Make sure to re-ertrieve data OR set avatar
+      })
+      .catch(catchError);
+  };
+
+  const catchError = (err) => {
+    // console.log("err:", err);
+    setError(err);
+    setDisableAvatarSubmit(false);
   };
 
   return (

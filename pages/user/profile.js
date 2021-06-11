@@ -22,6 +22,7 @@ export default function Profile({ user, userEvents }) {
         <UserProfile
           displayName={user.displayName || user.email}
           userAvatar={user.photoURL}
+          uid={user.uid}
         />
         <Typography variant="h6">Subscriptions: </Typography>
         <EventSubcriptions data={userEvents} />
@@ -39,6 +40,7 @@ export const getServerSideProps = async (ctx) => {
   return {
     props: {
       user: {
+        uid: userData.uid,
         displayName: userData.displayName,
         email: userData.email,
         photoURL: userData.photoURL,

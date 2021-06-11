@@ -24,7 +24,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function Profile({ displayName, userAvatar }) {
+export default function Profile({ displayName, userAvatar, uid }) {
   const classes = useStyles();
 
   const [edit, setEdit] = useState(false);
@@ -32,7 +32,11 @@ export default function Profile({ displayName, userAvatar }) {
   return (
     <div className={classes.profile}>
       {edit ? (
-        <ProfileEdit displayName={displayName} userAvatar={userAvatar} />
+        <ProfileEdit
+          displayName={displayName}
+          userAvatar={userAvatar}
+          uid={uid}
+        />
       ) : (
         <>
           <Avatar src={userAvatar} />
