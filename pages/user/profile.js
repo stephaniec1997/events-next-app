@@ -5,6 +5,10 @@ import { makeStyles } from "@material-ui/core/styles";
 import UserProfile from "components/user/profile";
 import EventSubcriptions from "components/user/subscriptions";
 
+import UserModel from "models/user";
+
+import UserProfileContext from "contexts/user-profile";
+
 import { getEvents, getUser } from "utils/firebase/admin";
 
 const useStyles = makeStyles(theme => ({
@@ -13,21 +17,19 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function Profile({ user, userEvents }) {
+export default function Profile({ user }) {
   const classes = useStyles();
 
+  const userData = new UserModel(user);
+
   return (
-    <>
+    <UserProfileContext.Provider value={userData}>
       <main className={classes.root}>
-        <UserProfile
-          displayName={user.displayName || user.email}
-          userAvatar={user.photoURL}
-          uid={user.uid}
-        />
+        <UserProfile />
         <Typography variant="h6">Subscriptions: </Typography>
-        <EventSubcriptions data={userEvents} />
+        <EventSubcriptions data={user.subscriptions} />
       </main>
-    </>
+    </UserProfileContext.Provider>
   );
 }
 
@@ -44,8 +46,8 @@ export const getServerSideProps = async (ctx) => {
         displayName: userData.displayName,
         email: userData.email,
         photoURL: userData.photoURL,
+        subscriptions: userEvents,
       },
-      userEvents: userEvents,
     },
   };
 };

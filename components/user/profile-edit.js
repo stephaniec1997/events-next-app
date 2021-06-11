@@ -1,20 +1,22 @@
-import { useState } from "react";
-// import { useRouter } from "next/router";
+import { useState, useContext } from "react";
 
 import Form from "components/form";
 import FormError from "components/form/error";
 import FormSuccess from "components/form/success";
 
+import UserProfileContext from "contexts/user-profile";
+
 import { validateForm } from "utils";
 import { updateUser } from "utils/firebase";
 import { storePhoto, deletePhoto } from "utils/firebase/image-storage";
 
-const ProfileEdit = ({ displayName, userAvatar, uid }) => {
-  // const router = useRouter();
+const ProfileEdit = () => {
   const [error, setError] = useState(null);
   const [successMessage, setSuccessMessage] = useState(null);
   const [disableNameSubmit, setDisableNameSubmit] = useState(null);
   const [disableAvatarSubmit, setDisableAvatarSubmit] = useState(null);
+
+  const user = useContext(UserProfileContext);
 
   const updateDisplayName = (updatedData) => {
     setDisableNameSubmit(true);
@@ -31,21 +33,21 @@ const ProfileEdit = ({ displayName, userAvatar, uid }) => {
       .then(() => {
         setDisableNameSubmit(false);
         setSuccessMessage("Display Name has been Updated!");
-        // TODO: Make sure to re-ertrieve data OR set displayName
+        user.displayName = updatedData.name;
       })
       .catch(catchError);
   };
 
   const updateAvatar = ({ image }) => {
     setDisableAvatarSubmit(true);
-    if (userAvatar && !image.file) {
-      return deletePhoto(uid).then(() => {
+    if (user.avatarUrl && !image.file) {
+      return deletePhoto(user.id).then(() => {
         updateUserPhoto("");
       });
     }
     if (image.file) {
       // TODO: compress file since only used for avatar
-      storePhoto(uid, image.file)
+      storePhoto(user.id, image.file)
         .then((url) => {
           updateUserPhoto(url);
         })
@@ -58,7 +60,7 @@ const ProfileEdit = ({ displayName, userAvatar, uid }) => {
       .then(() => {
         setSuccessMessage("Your avatar has been Updated!");
         setDisableAvatarSubmit(false);
-        // TODO: Make sure to re-ertrieve data OR set avatar
+        user.avatarUrl = url;
       })
       .catch(catchError);
   };
@@ -75,14 +77,16 @@ const ProfileEdit = ({ displayName, userAvatar, uid }) => {
       <FormError error={error} setOpen={setError} />
       <Form
         title="User Image"
-        fields={[{ label: "image", type: "image", value: { url: userAvatar } }]}
+        fields={[
+          { label: "image", type: "image", value: { url: user.avatarUrl } },
+        ]}
         buttonTitle={"Save Changes"}
         onSubmit={updateAvatar}
         disableSubmit={disableAvatarSubmit}
       />
       <Form
         title="Display Name"
-        fields={[{ label: "name", type: "text", value: displayName }]}
+        fields={[{ label: "name", type: "text", value: user.displayName }]}
         buttonTitle={"Update Display Name"}
         onSubmit={updateDisplayName}
         disableSubmit={disableNameSubmit}

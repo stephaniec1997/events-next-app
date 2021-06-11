@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
@@ -6,6 +6,8 @@ import EditIcon from "@material-ui/icons/Edit";
 import { makeStyles } from "@material-ui/core/styles";
 
 import ProfileEdit from "components/user/profile-edit";
+
+import UserProfileContext from "contexts/user-profile";
 
 const useStyles = makeStyles(theme => ({
   profile: {
@@ -24,24 +26,22 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function Profile({ displayName, userAvatar, uid }) {
+export default function Profile() {
   const classes = useStyles();
 
   const [edit, setEdit] = useState(false);
 
+  const user = useContext(UserProfileContext);
+
   return (
     <div className={classes.profile}>
       {edit ? (
-        <ProfileEdit
-          displayName={displayName}
-          userAvatar={userAvatar}
-          uid={uid}
-        />
+        <ProfileEdit />
       ) : (
         <>
-          <Avatar src={userAvatar} />
+          <Avatar src={user.avatarUrl} />
           <Typography variant="h5" className={classes.displayName}>
-            {displayName}
+            {user.displayName}
           </Typography>
         </>
       )}
