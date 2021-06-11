@@ -6,6 +6,7 @@ import Typography from "@material-ui/core/Typography";
 
 import EventTitle from "components/events/event-title";
 import EventLocation from "components/events/event-location";
+import SubscriptionButton from "components/events/subscription-button";
 import EditButtons from "components/events/edit-buttons";
 
 const Event = ({ event, edit, disableLocation, ...props }) => {
@@ -30,6 +31,12 @@ const Event = ({ event, edit, disableLocation, ...props }) => {
           </>
         }
       />
+      {!edit && (
+        <SubscriptionButton
+          isSubscribed={event.subscriptionStatus}
+          eid={event.id}
+        />
+      )}
       {edit && <EditButtons id={event.id} />}
     </ListItem>
   );

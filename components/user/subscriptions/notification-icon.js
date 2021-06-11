@@ -5,7 +5,7 @@ import NotificationsOffIcon from "@material-ui/icons/NotificationsOff";
 
 const NotificationIcon = ({ event }) => {
   const [notificationStatus, setNotificationStatus] = useState(
-    event.notificationStatus,
+    event.subscriptionStatus.notificationStatus,
   );
 
   const handleClick = () => {
@@ -16,12 +16,7 @@ const NotificationIcon = ({ event }) => {
   };
 
   return (
-    <IconButton
-      color="secondary"
-      edge="end"
-      aria-label="edit"
-      onClick={handleClick}
-    >
+    <IconButton color="secondary" aria-label="edit" onClick={handleClick}>
       {notificationStatus === "on" ? <NotificationsActiveIcon /> : null}
       {notificationStatus === "off" || !notificationStatus ? (
         <NotificationsOffIcon />

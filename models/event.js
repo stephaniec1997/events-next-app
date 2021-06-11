@@ -16,6 +16,7 @@ export default class Event {
     this._virtual = this._options.virtual || null;
     this._place = this._options.place || null;
     this._description = this._options.description || null;
+    this._subscription = this._options.subscription || null;
   }
 
   get id() {
@@ -65,6 +66,10 @@ export default class Event {
 
   get description() {
     return this._description;
+  }
+
+  get subscriptionStatus() {
+    return this._subscription;
   }
 
   formatDate(date) {

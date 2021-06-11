@@ -29,3 +29,34 @@ export const updateUser = (data) => {
   const user = getCurrentUser();
   return user.updateProfile(data);
 };
+
+/*       SUBSCRIPTION       */
+
+export const getUsersRef = () => {
+  const db = firebase.firestore();
+  return db.collection("users");
+};
+
+export const subscribeToEvent = async (uid, eid) => {
+  const usersRef = await getUsersRef();
+
+  return await usersRef
+    .doc(uid)
+    .collection("subscriptions")
+    .doc(eid)
+    .set({ notificationStatus: "off" });
+};
+
+export const unsubscribeFromEvent = async (uid, eid) => {
+  const usersRef = await getUsersRef();
+  return await usersRef
+    .doc(uid)
+    .collection("subscriptions")
+    .doc(eid)
+    .delete()
+    .then(() => {
+      // TODO: remove notification/messaging token if it exists
+    });
+};
+
+// FOR MESSAGING/NOTIFICATIONS https://firebase.google.com/docs/cloud-messaging/js/topic-messaging

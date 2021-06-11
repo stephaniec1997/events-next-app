@@ -9,7 +9,7 @@ import UserModel from "models/user";
 
 import UserProfileContext from "contexts/user-profile";
 
-import { getEvents, getUser } from "utils/firebase/admin";
+import { getUserSubscriptions, getUser } from "utils/firebase/admin";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -37,7 +37,8 @@ export const getServerSideProps = async (ctx) => {
   const cookies = nookies.get(ctx);
 
   const userData = await getUser(cookies.token);
-  const userEvents = await getEvents(); // TODO: get the correct data
+  const userEvents = await getUserSubscriptions(cookies.token);
+  const userSubs = await Promise.all(userEvents);
 
   return {
     props: {
@@ -46,7 +47,7 @@ export const getServerSideProps = async (ctx) => {
         displayName: userData.displayName,
         email: userData.email,
         photoURL: userData.photoURL,
-        subscriptions: userEvents,
+        subscriptions: { events: userSubs },
       },
     },
   };

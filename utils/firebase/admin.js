@@ -12,6 +12,7 @@ if (!admin.apps.length) {
   });
 }
 
+var db = admin.firestore();
 
 export const verifyAdmin = (token) => {
   return admin
@@ -26,6 +27,8 @@ export const verifyAdmin = (token) => {
 };
 
 // ------------- USER FUNCTIONS  --------------- //
+
+var usersRef = db.collection("users");
 
 export const getUser = (token) => {
   return admin
@@ -42,6 +45,39 @@ export const getUser = (token) => {
     });
 };
 
+export const getUserSubscriptions = async (token) => {
+  const { user_id } = await admin.auth().verifyIdToken(token);
+
+  return usersRef
+    .doc(user_id)
+    .collection("subscriptions")
+    .get()
+    .then((querySnapshot) => {
+      const subscribedEvents = querySnapshot.docs.map(async (doc) => {
+        const event = await getEvent(doc.id);
+        const subscription = doc.data();
+        return { ...event, subscription };
+      });
+      return subscribedEvents;
+    });
+};
+
+export const getUserSubscription = async (token, eid) => {
+  const { user_id } = await admin.auth().verifyIdToken(token);
+
+  return usersRef
+    .doc(user_id)
+    .collection("subscriptions")
+    .doc(eid)
+    .get()
+    .then((doc) => {
+      if (doc.exists) {
+        return doc.data();
+      }
+      return null;
+    });
+};
+
 // ------------- ADMIN FUNCTIONS  --------------- //
 
 export const getUserByEmail = email => admin.auth().getUserByEmail(email);
@@ -54,7 +90,6 @@ export const removeAdmin = user =>
 
 // ------------- EVENTS FUNCTIONS  --------------- //
 
-var db = admin.firestore();
 var eventsRef = db.collection("events");
 
 // main functions
