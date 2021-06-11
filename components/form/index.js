@@ -37,6 +37,12 @@ const initialState = (fields) => {
           virtual: value.virtual || false,
         };
         break;
+      case "image":
+        state[label] = {
+          file: value.file || null,
+          url: value.url || "",
+        };
+        break;
       case "password":
       case "text":
       default:

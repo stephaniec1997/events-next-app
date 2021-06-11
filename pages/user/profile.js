@@ -1,10 +1,8 @@
-import Avatar from "@material-ui/core/Avatar";
 import Typography from "@material-ui/core/Typography";
-import IconButton from "@material-ui/core/IconButton";
-import EditIcon from "@material-ui/icons/Edit";
 import { makeStyles } from "@material-ui/core/styles";
 
-import EventSubcriptions from "components/events/subscriptions";
+import UserProfile from "components/user/profile";
+import EventSubcriptions from "components/user/subscriptions";
 
 import { getEvents } from "utils/firebase/admin";
 
@@ -12,37 +10,18 @@ const useStyles = makeStyles(theme => ({
   root: {
     margin: theme.spacing(2),
   },
-  profile: {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    [theme.breakpoints.up("md")]: {
-      flexDirection: "row",
-      alignItems: "center",
-    },
-  },
-  displayName: {
-    [theme.breakpoints.up("md")]: {
-      margin: theme.spacing(1),
-    },
-  },
 }));
 
-export default function Profile({ displayName, userAvatar, userEvents = [] }) {
+export default function Profile({ user, userEvents }) {
   const classes = useStyles();
 
   return (
     <>
       <main className={classes.root}>
-        <div className={classes.profile}>
-          <Avatar src={userAvatar} />
-          <Typography variant="h5" className={classes.displayName}>
-            {displayName}
-          </Typography>
-          <IconButton color="secondary" edge="end" aria-label="edit">
-            <EditIcon />
-          </IconButton>
-        </div>
+        <UserProfile
+          displayName={user.displayName || user.email}
+          userAvatar={user.photoURL}
+        />
         <Typography variant="h6">Subscriptions: </Typography>
         <EventSubcriptions data={userEvents} />
       </main>
@@ -61,8 +40,7 @@ export async function getServerSideProps() {
 
   return {
     props: {
-      displayName: userData.displayName || userData.email,
-      userAvatar: userData.photoURL,
+      user: userData,
       userEvents: userEvents,
     },
   };

@@ -5,11 +5,16 @@ import DateRangeField from "components/form/fields/date-range";
 import LocationField from "components/form/fields/location";
 import PasswordField from "components/form/fields/password";
 import TextField from "components/form/fields/text";
+import ImageField from "components/form/fields/image";
 
 const useStyles = makeStyles(theme => ({
   field: {
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(1),
+  },
+  imageField: {
+    marginLeft: "auto",
+    marginRight: "auto",
   },
 }));
 
@@ -20,6 +25,7 @@ const Fields = ({ title, label, type, value, onChange }) => {
     switch (type) {
       case "date":
       case "location":
+      case "image":
         return onChange(e);
       case "password":
       case "text":
@@ -34,6 +40,14 @@ const Fields = ({ title, label, type, value, onChange }) => {
       return <DateRangeField values={value} setValues={handleChange} />;
     case "location":
       return <LocationField values={value} setValues={handleChange} />;
+    case "image":
+      return (
+        <ImageField
+          values={value}
+          setValues={handleChange}
+          className={classes.imageField}
+        />
+      );
     case "password":
       return (
         <PasswordField

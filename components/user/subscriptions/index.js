@@ -2,7 +2,7 @@ import { Fragment } from "react";
 import List from "@material-ui/core/List";
 import Divider from "@material-ui/core/Divider";
 
-import Event from "components/events/subscriptions/event";
+import Event from "components/user/subscriptions/event";
 import EventsModel from "models/events";
 
 const Subscriptions = ({ data }) => {

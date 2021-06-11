@@ -4,7 +4,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import { makeStyles } from "@material-ui/core/styles";
 
 import EventTitle from "components/events/event-title";
-import NotificationIcon from "components/events/subscriptions/notification-icon";
+import NotificationIcon from "components/user/subscriptions/notification-icon";
 
 const useStyles = makeStyles(() => ({
   event: {
