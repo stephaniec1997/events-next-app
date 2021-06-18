@@ -2,6 +2,7 @@ import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
 import "firebase/storage";
+import "firebase/messaging";
 
 import {
   FIREBASE_DATABASE_URL,
@@ -14,17 +15,15 @@ import {
 } from "constants";
 
 const firebaseConfig = {
+  projectId: FIREBASE_PROJECT_ID,
   apiKey: FIREBASE_API_KEY,
   authDomain: FIREBASE_AUTH_DOMAIN,
   databaseURL: FIREBASE_DATABASE_URL,
-  projectId: FIREBASE_PROJECT_ID,
   storageBucket: FIREBASE_STORAGE_BUCKET,
   messagingSenderId: FIREBASE_MESSAGING_SENDER_ID,
   appId: FIREBASE_APP_ID,
 };
 
-if (typeof window !== "undefined" && !firebase.apps.length) {
-  firebase.initializeApp(firebaseConfig);
-}
+!firebase.apps.length ? firebase.initializeApp(firebaseConfig) : firebase.app();
 
 export { firebase };

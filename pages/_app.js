@@ -4,9 +4,11 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import { ThemeProvider } from "@material-ui/core/styles";
 
 import Navbar from "components/navbar";
+import Notifications from "components/notifications";
 
 import DarkModeContext from "contexts/dark-mode";
 import { AuthenticationProvider } from "contexts/authentication";
+import { MessagingProvider } from "contexts/messaging";
 
 import { darkTheme, lightTheme } from "styles/theme";
 
@@ -23,13 +25,16 @@ function App({ Component, pageProps, previousTheme }) {
 
   return (
     <AuthenticationProvider>
-      <DarkModeContext.Provider value={{ isDarkMode, toggleTheme }}>
-        <ThemeProvider theme={theme}>
-          <CssBaseline />
-          <Navbar />
-          <Component {...pageProps} />
-        </ThemeProvider>
-      </DarkModeContext.Provider>
+      <MessagingProvider>
+        <DarkModeContext.Provider value={{ isDarkMode, toggleTheme }}>
+          <ThemeProvider theme={theme}>
+            <CssBaseline />
+            <Notifications />
+            <Navbar />
+            <Component {...pageProps} />
+          </ThemeProvider>
+        </DarkModeContext.Provider>
+      </MessagingProvider>
     </AuthenticationProvider>
   );
 }

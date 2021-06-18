@@ -32,14 +32,10 @@ export const updateUser = (data) => {
 
 /*       SUBSCRIPTION       */
 
-export const getUsersRef = () => {
-  const db = firebase.firestore();
-  return db.collection("users");
-};
+const db = firebase.firestore();
+const usersRef = db.collection("users");
 
 export const subscribeToEvent = async (uid, eid) => {
-  const usersRef = await getUsersRef();
-
   return await usersRef
     .doc(uid)
     .collection("subscriptions")
@@ -48,7 +44,6 @@ export const subscribeToEvent = async (uid, eid) => {
 };
 
 export const unsubscribeFromEvent = async (uid, eid) => {
-  const usersRef = await getUsersRef();
   return await usersRef
     .doc(uid)
     .collection("subscriptions")
@@ -57,6 +52,12 @@ export const unsubscribeFromEvent = async (uid, eid) => {
     .then(() => {
       // TODO: remove notification/messaging token if it exists
     });
+};
+
+export const storeUserMessagingToken = async (uid, token) => {
+  // TODO: store token in db
+  // TODO: fix this
+  //   return await usersRef.doc(uid).set({ messagingToken: token });
 };
 
 // FOR MESSAGING/NOTIFICATIONS https://firebase.google.com/docs/cloud-messaging/js/topic-messaging

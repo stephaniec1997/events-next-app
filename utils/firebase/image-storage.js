@@ -1,16 +1,17 @@
 import { firebase } from "utils/firebase/config";
 
-const getStorageRef = () => firebase.storage().ref();
+const storage = firebase.storage();
 
 export const storePhoto = (uid, file) => {
-  const storageRef = getStorageRef();
-  const imgRef = storageRef.child(`images/${uid}`);
+  const imgRef = storage.ref().child(`images/${uid}`);
   return imgRef.put(file).then((snap) => {
     return snap.ref.getDownloadURL().then(downloadURL => downloadURL);
   });
 };
 
 export const deletePhoto = (uid) => {
-  const storageRef = getStorageRef();
-  return storageRef.child(`images/${uid}`).delete();
+  return storage
+    .ref()
+    .child(`images/${uid}`)
+    .delete();
 };

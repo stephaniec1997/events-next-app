@@ -10,7 +10,12 @@ const NotificationIcon = ({ event }) => {
 
   const handleClick = () => {
     const newNotificationStatus = notificationStatus === "on" ? "off" : "on";
-    // TODO: send this to backend message.subsribe or unsubscribe from topic
+    if (newNotificationStatus === "on") {
+      // TODO: create token and update user subcriptions doc with notifications on and token
+    }
+    if (newNotificationStatus === "off") {
+      // TODO: delete token and update user subcriptions doc with notifications off and token null
+    }
     event.notificationStatus = newNotificationStatus;
     setNotificationStatus(newNotificationStatus);
   };
