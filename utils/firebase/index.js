@@ -54,10 +54,18 @@ export const unsubscribeFromEvent = async (uid, eid) => {
     });
 };
 
-export const storeUserMessagingToken = async (uid, token) => {
-  // TODO: store token in db
-  // TODO: fix this
-  //   return await usersRef.doc(uid).set({ messagingToken: token });
+const tokensRef = db.collection("tokens");
+
+export const storeUserMessagingToken = async (token) => {
+  const user = getCurrentUser();
+
+  await tokensRef.doc(token).set({ user: user?.uid || null }, { merge: true });
+
+  if (user) {
+    await usersRef
+      .doc(user.uid)
+      .set({ messagingToken: token }, { merge: true });
+  }
 };
 
 // FOR MESSAGING/NOTIFICATIONS https://firebase.google.com/docs/cloud-messaging/js/topic-messaging
