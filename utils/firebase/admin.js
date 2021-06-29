@@ -173,3 +173,53 @@ const serializeData = (doc) => {
 
 const dateToTimestamp = date =>
   admin.firestore.Timestamp.fromDate(new Date(date));
+
+// ------------- TOPIC NOTIFICATIONS FUNCTIONS  --------------- //
+
+export const subscribeToTopic = (registrationTokens, topic, uid) => {
+  // turn device notifications on //
+  admin
+    .messaging()
+    .subscribeToTopic(registrationTokens, topic)
+    .then((response) => {
+      // See the MessagingTopicManagementResponse reference documentation
+      // for the contents of response.
+      console.log("Successfully subscribed to topic:", response);
+    })
+    .catch((error) => {
+      console.log("Error subscribing to topic:", error);
+    });
+  // update subscription db collection //
+  usersRef
+    .doc(uid)
+    .collection("subscriptions")
+    .doc(topic)
+    .update({ notificationStatus: "on" });
+};
+
+export const unsubscribeToTopic = (registrationTokens, topic, uid) => {
+  admin
+    .messaging()
+    .unsubscribeFromTopic(registrationTokens, topic)
+    .then((response) => {
+      // See the MessagingTopicManagementResponse reference documentation
+      // for the contents of response.
+      console.log("Successfully unsubscribed from topic:", response);
+    })
+    .catch((error) => {
+      console.log("Error unsubscribing from topic:", error);
+    });
+
+  // update subscription db collection //
+  usersRef
+    .doc(uid)
+    .collection("subscriptions")
+    .doc(topic)
+    .update({ notificationStatus: "off" });
+};
+
+export const getUserMessagingTokens = async (uid) => {
+  const doc = await eventsRef.doc(uid).get();
+  const data = doc.data();
+  return data.messagingTokens;
+};

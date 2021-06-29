@@ -48,24 +48,21 @@ export const unsubscribeFromEvent = async (uid, eid) => {
     .doc(uid)
     .collection("subscriptions")
     .doc(eid)
-    .delete()
-    .then(() => {
-      // TODO: remove notification/messaging token if it exists
-    });
+    .delete();
 };
-
-const tokensRef = db.collection("tokens");
 
 export const storeUserMessagingToken = async (token) => {
   const user = getCurrentUser();
-
-  await tokensRef.doc(token).set({ user: user?.uid || null }, { merge: true });
-
   if (user) {
     await usersRef
       .doc(user.uid)
-      .set({ messagingToken: token }, { merge: true });
+      .update(
+        { messagingTokens: firebase.firestore.FieldValue.arrayUnion(token) },
+        { merge: true },
+      );
   }
 };
+
+
 
 // FOR MESSAGING/NOTIFICATIONS https://firebase.google.com/docs/cloud-messaging/js/topic-messaging

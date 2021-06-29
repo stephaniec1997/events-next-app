@@ -3,6 +3,8 @@ import IconButton from "@material-ui/core/IconButton";
 import NotificationsActiveIcon from "@material-ui/icons/NotificationsActive";
 import NotificationsOffIcon from "@material-ui/icons/NotificationsOff";
 
+import { subscribeToEvent, unsubscribeToEvent } from "utils/api";
+
 const NotificationIcon = ({ event }) => {
   const [notificationStatus, setNotificationStatus] = useState(
     event.subscriptionStatus.notificationStatus,
@@ -11,10 +13,10 @@ const NotificationIcon = ({ event }) => {
   const handleClick = () => {
     const newNotificationStatus = notificationStatus === "on" ? "off" : "on";
     if (newNotificationStatus === "on") {
-      // TODO: create token and update user subcriptions doc with notifications on and token
+      subscribeToEvent(event.id);
     }
     if (newNotificationStatus === "off") {
-      // TODO: delete token and update user subcriptions doc with notifications off and token null
+      unsubscribeToEvent(event.id);
     }
     event.notificationStatus = newNotificationStatus;
     setNotificationStatus(newNotificationStatus);

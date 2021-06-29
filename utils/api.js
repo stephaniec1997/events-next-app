@@ -27,3 +27,11 @@ export const updateEvent = (id, data) => {
 export const deleteEvent = (id) => {
   return fetchAPI(`/api/event?id=${id}`, "DELETE");
 };
+
+export const subscribeToEvent = (id) => {
+  return fetchAPI(`/api/subcriptions?id=${id}`, "POST");
+};
+
+export const unsubscribeToEvent = (id) => {
+  return fetchAPI(`/api/subcriptions?id=${id}`, "DELETE");
+};
