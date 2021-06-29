@@ -6,8 +6,9 @@ import { storeUserMessagingToken } from "utils/firebase";
 
 import { MESSAGING_KEY } from "constants";
 
-const messaging = firebase.messaging;
-
+const messaging = () => {
+  firebase.messaging.isSupported() ? firebase.messaging() : null;
+};
 export const onMessageListener = () =>
   new Promise((resolve) => {
     messaging().onMessage((payload) => {
@@ -17,7 +18,7 @@ export const onMessageListener = () =>
 
 export const getMessagingToken = (setTokenFound) => {
   return messaging()
-    .getToken({ vapidKey: MESSAGING_KEY })
+    ?.getToken({ vapidKey: MESSAGING_KEY })
     .then((currentToken) => {
       if (currentToken) {
         console.log("current token for client: ", JSON.stringify(currentToken));
