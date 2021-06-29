@@ -1,4 +1,6 @@
 // admin setup src: https://colinhacks.com/essays/nextjs-firebase-authentication
+import { isArray } from "lodash";
+
 import * as admin from "firebase-admin";
 
 if (!admin.apps.length) {
@@ -45,20 +47,38 @@ export const getUser = (token) => {
     });
 };
 
-export const getUserSubscriptions = async (token) => {
+export const getUserSubscriptions = async (token, messageToken) => {
   const { user_id } = await admin.auth().verifyIdToken(token);
 
   return usersRef
     .doc(user_id)
-    .collection("subscriptions")
     .get()
-    .then((querySnapshot) => {
-      const subscribedEvents = querySnapshot.docs.map(async (doc) => {
+    .then((doc) => {
+      if (doc.exists) {
+        const data = doc.data();
+        return data.subscriptions;
+      }
+      return null;
+    })
+    .then((subscriptions) => {
+      if (isArray(subscriptions)) {
+        return subscriptions;
+      }
+      return [];
+    })
+    .then((subscriptions) => {
+      return subscriptions.map(async (doc) => {
         const event = await getEvent(doc.id);
-        const subscription = doc.data();
-        return { ...event, subscription };
+        let notificationStatus = null;
+        if (messageToken) {
+          notificationStatus = await getNotificationStatus(
+            messageToken,
+            doc.id,
+            user_id,
+          );
+        }
+        return { ...event, subscription: true, notificationStatus };
       });
-      return subscribedEvents;
     });
 };
 
@@ -67,14 +87,19 @@ export const getUserSubscription = async (token, eid) => {
 
   return usersRef
     .doc(user_id)
-    .collection("subscriptions")
-    .doc(eid)
     .get()
     .then((doc) => {
       if (doc.exists) {
-        return doc.data();
+        const data = doc.data();
+        return data.subscriptions;
       }
       return null;
+    })
+    .then((subscriptions) => {
+      if (isArray(subscriptions)) {
+        return subscriptions.includes(eid);
+      }
+      return false;
     });
 };
 
@@ -176,11 +201,28 @@ const dateToTimestamp = date =>
 
 // ------------- TOPIC NOTIFICATIONS FUNCTIONS  --------------- //
 
-export const subscribeToTopic = (registrationTokens, topic, uid) => {
+export const getNotificationStatus = (messageToken, eid, uid) => {
+  // update subscription db collection //
+  usersRef
+    .doc(uid)
+    .collection("subscriptions")
+    .doc(eid)
+    .collection("devices")
+    .doc(messageToken)
+    .get()
+    .then((doc) => {
+      if (doc.exists) {
+        return doc.data();
+      }
+      return null;
+    });
+};
+
+export const turnOnNotifications = (registrationToken, topic, uid) => {
   // turn device notifications on //
   admin
     .messaging()
-    .subscribeToTopic(registrationTokens, topic)
+    .subscribeToTopic([registrationToken], topic)
     .then((response) => {
       // See the MessagingTopicManagementResponse reference documentation
       // for the contents of response.
@@ -189,18 +231,21 @@ export const subscribeToTopic = (registrationTokens, topic, uid) => {
     .catch((error) => {
       console.log("Error subscribing to topic:", error);
     });
+
   // update subscription db collection //
   usersRef
     .doc(uid)
     .collection("subscriptions")
     .doc(topic)
+    .collection("devices")
+    .doc(registrationToken)
     .update({ notificationStatus: "on" });
 };
 
-export const unsubscribeToTopic = (registrationTokens, topic, uid) => {
+export const turnOffNotifications = (registrationToken, topic, uid) => {
   admin
     .messaging()
-    .unsubscribeFromTopic(registrationTokens, topic)
+    .unsubscribeFromTopic([registrationToken], topic)
     .then((response) => {
       // See the MessagingTopicManagementResponse reference documentation
       // for the contents of response.
@@ -215,11 +260,7 @@ export const unsubscribeToTopic = (registrationTokens, topic, uid) => {
     .doc(uid)
     .collection("subscriptions")
     .doc(topic)
+    .collection("devices")
+    .doc(registrationToken)
     .update({ notificationStatus: "off" });
-};
-
-export const getUserMessagingTokens = async (uid) => {
-  const doc = await eventsRef.doc(uid).get();
-  const data = doc.data();
-  return data.messagingTokens;
 };

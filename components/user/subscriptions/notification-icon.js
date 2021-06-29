@@ -7,11 +7,12 @@ import { subscribeToEvent, unsubscribeToEvent } from "utils/api";
 
 const NotificationIcon = ({ event }) => {
   const [notificationStatus, setNotificationStatus] = useState(
-    event.subscriptionStatus.notificationStatus,
+    event.notificationStatus,
   );
 
   const handleClick = () => {
     const newNotificationStatus = notificationStatus === "on" ? "off" : "on";
+    // TODO: check for message token or get one
     if (newNotificationStatus === "on") {
       subscribeToEvent(event.id);
     }

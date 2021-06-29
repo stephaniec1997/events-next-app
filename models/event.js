@@ -17,6 +17,7 @@ export default class Event {
     this._place = this._options.place || null;
     this._description = this._options.description || null;
     this._subscription = this._options.subscription || null;
+    this._notification = this._options.notificationStatus || null;
   }
 
   get id() {
@@ -70,6 +71,14 @@ export default class Event {
 
   get subscriptionStatus() {
     return this._subscription;
+  }
+
+  get notificationStatus() {
+    return this._notification;
+  }
+
+  set notificationStatus(status) {
+    this._notification = status;
   }
 
   formatDate(date) {

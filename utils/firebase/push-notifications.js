@@ -25,6 +25,7 @@ export const getMessagingToken = (setTokenFound) => {
         storeUserMessagingToken(JSON.stringify(currentToken));
       } else {
         setTokenFound(false);
+        storeUserMessagingToken();
       }
     })
     .catch((err) => {

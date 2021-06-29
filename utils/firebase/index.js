@@ -1,3 +1,5 @@
+import nookies from "nookies";
+
 import { firebase } from "utils/firebase/config";
 
 export const authenticateUser = (observer) => {
@@ -38,31 +40,27 @@ const usersRef = db.collection("users");
 export const subscribeToEvent = async (uid, eid) => {
   return await usersRef
     .doc(uid)
-    .collection("subscriptions")
-    .doc(eid)
-    .set({ notificationStatus: "off" });
+    .update(
+      { subscriptions: firebase.firestore.FieldValue.arrayUnion(eid) },
+      { merge: true },
+    );
 };
 
 export const unsubscribeFromEvent = async (uid, eid) => {
   return await usersRef
     .doc(uid)
-    .collection("subscriptions")
-    .doc(eid)
-    .delete();
+    .update(
+      { subscriptions: firebase.firestore.FieldValue.arrayRemove(eid) },
+      { merge: true },
+    );
 };
 
 export const storeUserMessagingToken = async (token) => {
-  const user = getCurrentUser();
-  if (user) {
-    await usersRef
-      .doc(user.uid)
-      .update(
-        { messagingTokens: firebase.firestore.FieldValue.arrayUnion(token) },
-        { merge: true },
-      );
+  if (token) {
+    nookies.set(undefined, "message_token", token, { path: "/" });
+  } else {
+    nookies.set(undefined, "message_token", "", { path: "/" });
   }
 };
-
-
 
 // FOR MESSAGING/NOTIFICATIONS https://firebase.google.com/docs/cloud-messaging/js/topic-messaging

@@ -1,9 +1,8 @@
 import { parseCookies } from "nookies";
 import {
-  subscribeToTopic,
+  turnOnNotifications,
   getEvent,
-  getUserMessagingTokens,
-  unsubscribeToTopic,
+  turnOffNotifications,
   getUser,
 } from "utils/firebase/admin";
 
@@ -14,10 +13,9 @@ export default async function userHandler(req, res) {
   } = req;
 
   const parsedCookies = parseCookies({ req });
-  const user = getUser(parsedCookies.token);
+  const { message_token, token } = parsedCookies;
+  const user = getUser(token);
   const uid = user.uid;
-  console.log(user);
-  const userMessagingTokens = getUserMessagingTokens(uid);
 
   // IF given an ID veify that doc exists
   if (id) {
@@ -33,7 +31,7 @@ export default async function userHandler(req, res) {
   switch (method) {
     case "POST":
       try {
-        await subscribeToTopic(userMessagingTokens, id, uid);
+        await turnOnNotifications(message_token, id, uid);
       } catch (error) {
         return res.status(500).json({ error: error.message });
       }
@@ -41,7 +39,7 @@ export default async function userHandler(req, res) {
       break;
     case "DELETE":
       try {
-        await unsubscribeToTopic(userMessagingTokens, id, uid);
+        await turnOffNotifications(message_token, id, uid);
       } catch (error) {
         return res.status(500).json({ error: error.message });
       }

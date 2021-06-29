@@ -36,6 +36,9 @@ export async function getServerSideProps(ctx) {
   let subscription;
   if (cookies.token) {
     subscription = await getUserSubscription(cookies.token, eid);
+    if(cookies.message_token){
+      // TODO: check notification status... may not be necessary
+    }
   }
 
   return {

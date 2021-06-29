@@ -37,7 +37,7 @@ export const getServerSideProps = async (ctx) => {
   const cookies = nookies.get(ctx);
 
   const userData = await getUser(cookies.token);
-  const userEvents = await getUserSubscriptions(cookies.token);
+  const userEvents = await getUserSubscriptions(cookies.token, cookies.message_token);
   const userSubs = await Promise.all(userEvents);
 
   return {
