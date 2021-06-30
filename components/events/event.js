@@ -9,7 +9,13 @@ import EventLocation from "components/events/event-location";
 import SubscriptionButton from "components/events/subscription-button";
 import EditButtons from "components/events/edit-buttons";
 
-const Event = ({ event, edit, disableLocation, ...props }) => {
+const Event = ({
+  event,
+  edit,
+  disableLocation,
+  disableSubButton,
+  ...props
+}) => {
   const buttonProps = edit ? {} : props;
 
   return (
@@ -31,7 +37,7 @@ const Event = ({ event, edit, disableLocation, ...props }) => {
           </>
         }
       />
-      {!edit && (
+      {!edit && !disableSubButton && (
         <SubscriptionButton
           isSubscribed={event.subscriptionStatus}
           eid={event.id}
