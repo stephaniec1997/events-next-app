@@ -78,8 +78,7 @@ const ProfileEdit = () => {
   };
 
   const catchError = (err) => {
-    // console.log("err:", err);
-    setError(err);
+    setError(err || err.message);
     setDisableAvatarSubmit(false);
   };
 

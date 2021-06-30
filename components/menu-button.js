@@ -103,13 +103,13 @@ const MenuButton = () => {
                   >
                     {renderMenuItemLink("/", "Upcoming Events")}
                     {renderMenuItemLink("/past", "Past Events")}
+                    {auth.user &&
+                      renderMenuItemLink("/user/profile", "Profile")}
+
                     {auth.user ? (
-                      <>
-                        {renderMenuItemLink("/user/profile", "Profile")}
-                        <MenuItem onClick={() => auth.signout()}>
-                          Sign Out
-                        </MenuItem>
-                      </>
+                      <MenuItem onClick={() => auth.signout()}>
+                        Sign Out
+                      </MenuItem>
                     ) : (
                       renderMenuItemLink("/signin", "Sign In")
                     )}

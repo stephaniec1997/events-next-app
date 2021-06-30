@@ -11,7 +11,7 @@ const messaging = () => {
 };
 export const onMessageListener = () =>
   new Promise((resolve) => {
-    messaging().onMessage((payload) => {
+    messaging()?.onMessage((payload) => {
       resolve(payload);
     });
   });

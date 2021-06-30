@@ -67,13 +67,13 @@ export const getUserSubscriptions = async (token, messageToken) => {
       return [];
     })
     .then((subscriptions) => {
-      return subscriptions.map(async (doc) => {
-        const event = await getEvent(doc.id);
+      return subscriptions.map(async (eid) => {
+        const event = await getEvent(eid);
         let notificationStatus = null;
         if (messageToken) {
           notificationStatus = await getNotificationStatus(
             messageToken,
-            doc.id,
+            eid,
             user_id,
           );
         }

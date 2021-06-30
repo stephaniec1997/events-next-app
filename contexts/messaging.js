@@ -25,7 +25,7 @@ const useProvideMessaging = () => {
   const [notification, setNotification] = useState(null);
 
   useEffect(() => {
-    getMessagingToken(setTokenFound);
+    getToken();
     onMessageListener()
       .then((payload) => {
         setNotification({
@@ -41,8 +41,15 @@ const useProvideMessaging = () => {
     setNotification(null);
   };
 
+  const getToken=()=>{
+    getMessagingToken(setTokenFound);
+  };
+
+
+
   return {
     isTokenFound,
+    getToken,
     notification,
     dismissNotification,
   };

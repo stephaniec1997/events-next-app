@@ -40,7 +40,7 @@ const usersRef = db.collection("users");
 export const subscribeToEvent = async (uid, eid) => {
   return await usersRef
     .doc(uid)
-    .update(
+    .set(
       { subscriptions: firebase.firestore.FieldValue.arrayUnion(eid) },
       { merge: true },
     );

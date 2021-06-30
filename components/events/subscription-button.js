@@ -19,7 +19,7 @@ const SubscriptionButton = ({ isSubscribed, eid }) => {
     if (isSubscribed) {
       return unsubscribeFromEvent(auth.user.uid, eid)
         .then(() => {
-          successMessage("You are now UNSUBSCRIBED from this event");
+          setSuccessMessage("You are now UNSUBSCRIBED from this event");
           // TODO:update data on the fron end page
         })
         .catch((err) => {
@@ -29,11 +29,11 @@ const SubscriptionButton = ({ isSubscribed, eid }) => {
 
     return subscribeToEvent(auth.user.uid, eid)
       .then(() => {
-        successMessage("You are now SUBSCRIBED from this event");
+        setSuccessMessage("You are now SUBSCRIBED from this event");
         // TODO:update data on the fron end page
       })
       .catch((err) => {
-        setError(err);
+        setError(err.message);
       });
   };
 
