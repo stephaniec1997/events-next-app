@@ -41,11 +41,9 @@ const useProvideMessaging = () => {
     setNotification(null);
   };
 
-  const getToken=()=>{
+  const getToken = () => {
     getMessagingToken(setTokenFound);
   };
-
-
 
   return {
     isTokenFound,

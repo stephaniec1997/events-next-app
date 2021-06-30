@@ -7,7 +7,7 @@ import { storeUserMessagingToken } from "utils/firebase";
 import { MESSAGING_KEY } from "constants";
 
 const messaging = () => {
-  firebase.messaging.isSupported() ? firebase.messaging() : null;
+  return firebase.messaging.isSupported() ? firebase.messaging() : null;
 };
 export const onMessageListener = () =>
   new Promise((resolve) => {
