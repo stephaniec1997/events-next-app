@@ -28,6 +28,8 @@ const useProvideMessaging = () => {
     getToken();
     onMessageListener()
       .then((payload) => {
+        // TODO: delete the following
+        console.log('heyyyyyy',payload);
         setNotification({
           title: payload.notification.title,
           body: payload.notification.body,

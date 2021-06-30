@@ -5,6 +5,7 @@ import {
   getEvent,
   updateEvent,
   deleteEvent,
+  notifyTopicChange,
 } from "utils/firebase/admin";
 
 export default async function userHandler(req, res) {
@@ -49,6 +50,12 @@ export default async function userHandler(req, res) {
     case "PUT":
       try {
         event = await updateEvent(id, data);
+        await notifyTopicChange(
+          id,
+          data.name,
+          "Event has been updated, make sure to checkout it out.",
+          // FIXME: actually send a detailed message and clickable link
+        );
       } catch (error) {
         res.status(500).json({ error: error.message });
       }

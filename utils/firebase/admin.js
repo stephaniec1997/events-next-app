@@ -227,7 +227,7 @@ export const turnOnNotifications = (registrationToken, topic, uid) => {
     .then((response) => {
       // See the MessagingTopicManagementResponse reference documentation
       // for the contents of response.
-      console.log("Successfully subscribed to topic:", response);
+      console.log(`"Successfully subscribed to topic ${topic}"`, response);
     })
     .catch((error) => {
       console.log("Error subscribing to topic:", error);
@@ -264,4 +264,28 @@ export const turnOffNotifications = (registrationToken, topic, uid) => {
     .collection("devices")
     .doc(registrationToken)
     .set({ notificationStatus: "off" });
+};
+
+export const notifyTopicChange = (topic, eventName, body) => {
+  // The topic name can be optionally prefixed with "/topics/".
+
+  const message = {
+    notification: {
+      title: `Event Changes: ${eventName}`,
+      body,
+    },
+    topic: topic,
+  };
+
+  // Send a message to devices subscribed to the provided topic.
+  admin
+    .messaging()
+    .send(message)
+    .then((response) => {
+      // Response is a message ID string.
+      console.log(`"Successfully sent message to topic ${topic}:"`, response);
+    })
+    .catch((error) => {
+      console.log("Error sending message:", error);
+    });
 };
