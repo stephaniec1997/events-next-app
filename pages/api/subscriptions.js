@@ -14,17 +14,21 @@ export default async function userHandler(req, res) {
 
   const parsedCookies = parseCookies({ req });
   const { message_token, token } = parsedCookies;
-  const user = getUser(token);
+  const user = await getUser(token);
   const uid = user.uid;
 
   // IF given an ID veify that doc exists
   if (id) {
     const eventDoc = await getEvent(id);
     if (!eventDoc) {
-      return res.status(500).json({
+      return res.status(404).json({
         error: "You can't subscribe to an event that no longer exists",
       });
     }
+  } else {
+    return res.status(400).json({
+      error: "Bad Request",
+    });
   }
 
   // CONTINUE WITH METHODS

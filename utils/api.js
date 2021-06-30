@@ -29,9 +29,9 @@ export const deleteEvent = (id) => {
 };
 
 export const subscribeToEvent = (id) => {
-  return fetchAPI(`/api/subcriptions?id=${id}`, "POST");
+  return fetchAPI(`/api/subscriptions?id=${id}`, "POST");
 };
 
 export const unsubscribeToEvent = (id) => {
-  return fetchAPI(`/api/subcriptions?id=${id}`, "DELETE");
+  return fetchAPI(`/api/subscriptions?id=${id}`, "DELETE");
 };

@@ -26,6 +26,7 @@ const NotificationIcon = ({ event }) => {
       if (newNotificationStatus === "off") {
         unsubscribeToEvent(event.id);
       }
+      // TODO: handle any errors
       event.notificationStatus = newNotificationStatus;
       setNotificationStatus(newNotificationStatus);
     } else {

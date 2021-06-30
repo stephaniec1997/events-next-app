@@ -77,6 +77,7 @@ export const getUserSubscriptions = async (token, messageToken) => {
             user_id,
           );
         }
+
         return { ...event, subscription: true, notificationStatus };
       });
     });
@@ -203,7 +204,7 @@ const dateToTimestamp = date =>
 
 export const getNotificationStatus = (messageToken, eid, uid) => {
   // update subscription db collection //
-  usersRef
+  return usersRef
     .doc(uid)
     .collection("subscriptions")
     .doc(eid)
@@ -212,7 +213,7 @@ export const getNotificationStatus = (messageToken, eid, uid) => {
     .get()
     .then((doc) => {
       if (doc.exists) {
-        return doc.data();
+        return doc.data().notificationStatus;
       }
       return null;
     });
@@ -239,7 +240,7 @@ export const turnOnNotifications = (registrationToken, topic, uid) => {
     .doc(topic)
     .collection("devices")
     .doc(registrationToken)
-    .update({ notificationStatus: "on" });
+    .set({ notificationStatus: "on" });
 };
 
 export const turnOffNotifications = (registrationToken, topic, uid) => {
@@ -262,5 +263,5 @@ export const turnOffNotifications = (registrationToken, topic, uid) => {
     .doc(topic)
     .collection("devices")
     .doc(registrationToken)
-    .update({ notificationStatus: "off" });
+    .set({ notificationStatus: "off" });
 };
