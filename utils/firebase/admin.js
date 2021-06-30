@@ -284,6 +284,7 @@ export const notifyTopicChange = (topic, eventName, body) => {
     .then((response) => {
       // Response is a message ID string.
       console.log(`"Successfully sent message to topic ${topic}:"`, response);
+      console.log(response.results[0].error);
     })
     .catch((error) => {
       console.log("Error sending message:", error);

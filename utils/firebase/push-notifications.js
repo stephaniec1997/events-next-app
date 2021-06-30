@@ -21,9 +21,9 @@ export const getMessagingToken = (setTokenFound) => {
     ?.getToken({ vapidKey: MESSAGING_KEY })
     .then((currentToken) => {
       if (currentToken) {
-        console.log("current token for client: ", JSON.stringify(currentToken));
+        console.log("current token for client: ", currentToken);
         setTokenFound(true);
-        storeUserMessagingToken(JSON.stringify(currentToken));
+        storeUserMessagingToken(currentToken);
       } else {
         setTokenFound(false);
         storeUserMessagingToken();
