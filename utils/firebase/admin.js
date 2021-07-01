@@ -266,10 +266,9 @@ export const turnOffNotifications = (registrationToken, topic, uid) => {
     .set({ notificationStatus: "off" });
 };
 
-export const notifyTopicChange = (topic, eventName, body) => {
-  // The topic name can be optionally prefixed with "/topics/".
-
+export const notifyTopicChange = (topic, eventName, body, link = null) => {
   const message = {
+    data: { click_action: link },
     notification: {
       title: `Event Changes: ${eventName}`,
       body,

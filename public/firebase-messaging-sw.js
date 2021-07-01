@@ -21,7 +21,22 @@ messaging.onBackgroundMessage((payload) => {
   const notificationTitle = payload.notification.title;
   const notificationOptions = {
     body: payload.notification.body,
+    click_action: payload.data.click_action,
+    data: { url: payload.data.click_action }, //the url which we gonna use later
+    actions: [{ action: "open_url", title: "See Now" }],
   };
 
   self.registration.showNotification(notificationTitle, notificationOptions);
+
+  self.addEventListener(
+    "notificationclick",
+    function (event) {
+      switch (event.action) {
+        case "open_url":
+          clients.openWindow(event.notification.data.url); //which we got from above
+          break;
+      }
+    },
+    false,
+  );
 });

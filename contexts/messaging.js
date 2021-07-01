@@ -29,10 +29,11 @@ const useProvideMessaging = () => {
     onMessageListener()
       .then((payload) => {
         // TODO: delete the following
-        console.log('heyyyyyy',payload);
+        console.log("notification: ", payload);
         setNotification({
           title: payload.notification.title,
           body: payload.notification.body,
+          link: payload.data.click_action,
         });
       })
       .catch(err => console.log("failed: ", err));
