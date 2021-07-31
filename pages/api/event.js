@@ -53,8 +53,8 @@ export default async function userHandler(req, res) {
         await notifyTopicChange(
           id,
           data.name,
-          "Event has been updated, make sure to check it out.", // FIXME: actually send a detailed message
-          `/event/${id}`,
+          "Event has been updated, make sure to check it out.",
+          // FIXME: actually send a detailed message
         );
       } catch (error) {
         res.status(500).json({ error: error.message });

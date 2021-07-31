@@ -29,7 +29,7 @@ const SubscriptionButton = ({ isSubscribed, eid }) => {
 
     return subscribeToEvent(auth.user.uid, eid)
       .then(() => {
-        setSuccessMessage("You are now SUBSCRIBED from this event");
+        setSuccessMessage("You are now SUBSCRIBED to this event");
         // TODO:update data on the fron end page
       })
       .catch((err) => {

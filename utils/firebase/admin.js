@@ -119,7 +119,7 @@ export const removeAdmin = user =>
 var eventsRef = db.collection("events");
 
 // main functions
-// TODO: improve getEvents and getPastEvents query to filter by end date instead
+// FIXMES: improve getEvents and getPastEvents query to filter by end date instead
 //       for events spanning several days/weeks (note: allDay events don't have
 //       endDate and no || queries available for firebase yet -- view
 //       https://issuetracker.google.com/issues/129070817#comment42)
@@ -231,6 +231,7 @@ export const turnOnNotifications = (registrationToken, topic, uid) => {
     })
     .catch((error) => {
       console.log("Error subscribing to topic:", error);
+      // TODO: if error do not continue and notify user of error
     });
 
   // update subscription db collection //
@@ -254,6 +255,7 @@ export const turnOffNotifications = (registrationToken, topic, uid) => {
     })
     .catch((error) => {
       console.log("Error unsubscribing from topic:", error);
+      // TODO: if error do not continue and notify user of error
     });
 
   // update subscription db collection //
@@ -266,9 +268,9 @@ export const turnOffNotifications = (registrationToken, topic, uid) => {
     .set({ notificationStatus: "off" });
 };
 
-export const notifyTopicChange = (topic, eventName, body, link = null) => {
+export const notifyTopicChange = (topic, eventName, body) => {
   const message = {
-    data: { click_action: link },
+    data: { click_action: `/event/${topic}` }, // TODO: add base_url
     notification: {
       title: `Event Changes: ${eventName}`,
       body,
@@ -287,5 +289,6 @@ export const notifyTopicChange = (topic, eventName, body, link = null) => {
     })
     .catch((error) => {
       console.log("Error sending message:", error);
+      // TODO: if error do not continue and notify user that no notification was sent
     });
 };

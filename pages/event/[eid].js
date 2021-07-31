@@ -23,7 +23,7 @@ const EventPage = ({ event }) => {
 };
 
 export async function getServerSideProps(ctx) {
-  const eid = ctx.params.eid;
+  const { eid } = ctx.params;
   const data = await getEvent(eid);
 
   if (!data) {
@@ -33,7 +33,7 @@ export async function getServerSideProps(ctx) {
   }
 
   const cookies = nookies.get(ctx);
-  let subscription;
+  let subscription = null;
   if (cookies.token) {
     subscription = await getUserSubscription(cookies.token, eid);
   }
