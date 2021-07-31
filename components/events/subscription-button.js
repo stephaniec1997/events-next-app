@@ -9,18 +9,21 @@ import { useAuthenticationContext } from "contexts/authentication";
 
 import { subscribeToEvent, unsubscribeFromEvent } from "utils/firebase";
 
-const SubscriptionButton = ({ isSubscribed, eid }) => {
+const SubscriptionButton = ({ event }) => {
   const auth = useAuthenticationContext();
 
   const [error, setError] = useState(null);
   const [successMessage, setSuccessMessage] = useState(null);
 
+  const isSubscribed = event.subscriptionStatus;
+  const eid = event.id;
+
   const handleClick = () => {
     if (isSubscribed) {
       return unsubscribeFromEvent(auth.user.uid, eid)
         .then(() => {
+          event.subscriptionStatus = !isSubscribed;
           setSuccessMessage("You are now UNSUBSCRIBED from this event");
-          // TODO:update data on the fron end page
         })
         .catch((err) => {
           setError(err);
@@ -29,8 +32,8 @@ const SubscriptionButton = ({ isSubscribed, eid }) => {
 
     return subscribeToEvent(auth.user.uid, eid)
       .then(() => {
+        event.subscriptionStatus = !isSubscribed;
         setSuccessMessage("You are now SUBSCRIBED to this event");
-        // TODO:update data on the fron end page
       })
       .catch((err) => {
         setError(err.message);

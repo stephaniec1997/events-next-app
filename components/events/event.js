@@ -39,8 +39,7 @@ const Event = ({
       />
       {!edit && !disableSubButton && (
         <SubscriptionButton
-          isSubscribed={event.subscriptionStatus}
-          eid={event.id}
+          event={event}
         />
       )}
       {edit && <EditButtons id={event.id} />}

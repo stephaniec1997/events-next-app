@@ -81,6 +81,10 @@ export default class Event {
     this._notification = status;
   }
 
+  set subscriptionStatus(status) {
+    this._subscription = status;
+  }
+
   formatDate(date) {
     if (this.allDay) {
       return date && format(date, "EEEE MMMM d, yyyy");
