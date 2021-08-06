@@ -38,7 +38,7 @@ The app was meant to display events created by an admin. Authentication happens 
 ### Future improvements
 
 - More test coverage
-- Event Subscription with Notifications
+- Event Subscription with Notifications ✅
 - Use Firebase Cloud Function to initialize admin/super-user
 
 ## Firebase Setup
@@ -51,9 +51,11 @@ I've used the firebase console for all the setup.
 3. Initialize Firestore and Realtime Databases
 4. Get public variables for project's client side use.
   - If you haven't already go to Project Settings - General and add a new web app. Once it's been setup, your config variables will be displayed under that web app.
-5. Get Admin SDK private variables for project.
+5. Get Google Cloud Messaging (public) Key
+  - Under Project Settings - Cloud Messaging - Web configuration generate a new Key Value pair and use that value.
+6. Get Admin SDK private variables for project.
   - Under Project Settings - Service Accounts generate a private key for admin sdk, download file to store and use variables within file for the private env variables.
-6. If taking to production, you'll also need to setup some database security rules which you can find more info on [here](https://firebase.google.com/docs/auth/admin/custom-claims).
+7. If taking to production, you'll also need to setup some database security rules which you can find more info on [here](https://firebase.google.com/docs/auth/admin/custom-claims).
 
 Some Helpful Resources:
 
