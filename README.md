@@ -38,7 +38,7 @@ The app was meant to display events created by an admin. Authentication happens 
 ### Future improvements
 
 - More test coverage
-- Event Subscription with Notifications
+- Event Subscription with Notifications (checkout event-subscription branch)
 - Use Firebase Cloud Function to initialize admin/super-user
 
 ## Firebase Setup
